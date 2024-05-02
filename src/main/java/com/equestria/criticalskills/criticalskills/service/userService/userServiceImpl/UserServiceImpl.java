@@ -26,7 +26,10 @@ public class UserServiceImpl implements UserService {
 
 
 
-
+     /*
+     * TODO 邮箱验证码验证(基础验证,核对申请邮箱,验证码过期时间)
+     * TODO sql时间字段的自动注入
+     *  */
     @Override
     public void addUser(RegisterDTO registerDTO) {
         String username= registerDTO.getUsername();
