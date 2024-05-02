@@ -1,0 +1,15 @@
+package com.equestria.criticalskills.criticalskills.mapper.userMapper;
+
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface UserBasicInfoMapper {
+
+    @Insert("insert into user_basic_info(username, age, gender, email, phone, qq, introduction, avator, update_time) "+
+            "VALUES (#{username},#{age},#{gender},#{email},#{phone},#{qq},#{introduction},#{avator},#{updateTime})")
+    void insertUserBasicInfo(UserBasicInfo userBasicInfo);
+
+
+}
