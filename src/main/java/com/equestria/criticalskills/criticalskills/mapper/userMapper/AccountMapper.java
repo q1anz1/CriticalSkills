@@ -12,9 +12,6 @@ public interface AccountMapper {
     @Select("select email from account  where email=#{email}")
     String findEmail(String email);
 
-    @Select("select username from account where username=#{username}")
-    String findUsername(String username);
-
     @Select("select * from account where username=#{username}")
     Account selectByUsername(String username);
 

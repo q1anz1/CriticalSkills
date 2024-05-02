@@ -6,6 +6,7 @@ import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.EmailSend
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,10 +21,11 @@ import java.util.Random;
 
 
 @Service
+@RequiredArgsConstructor
 public class EmailSender {
 
-        @Resource
-        private JavaMailSenderImpl mailSender;
+
+        private final JavaMailSenderImpl mailSender;
 
 
         @Value("${spring.mail.username}")
