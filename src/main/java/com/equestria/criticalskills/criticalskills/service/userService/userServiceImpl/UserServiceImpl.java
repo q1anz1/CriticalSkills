@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         }else {
             account.setRole(2);
         }
+
         UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
         try {
             accountMapper.insertAccount(account);
