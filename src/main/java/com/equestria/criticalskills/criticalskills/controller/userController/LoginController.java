@@ -36,15 +36,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-<<<<<<< Updated upstream
-    public Result<String> login(@RequestBody LoginDTO loginDTO) {
-=======
     public Result login(@RequestBody LoginDTO loginDTO) {
-
         
-    }
->>>>>>> Stashed changes
-
             if (userService.login(loginDTO)){
                 HashMap<String, String>claims = new HashMap<>();
                 claims.put("username",loginDTO.getUsername());
