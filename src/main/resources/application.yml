@@ -1,5 +1,6 @@
 
 spring:
+
   mail:
     # 发送者邮箱
     username: 2859111272@qq.com
@@ -20,3 +21,9 @@ spring:
           #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
           debug: true
           ssl: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 456789
+      database: 0

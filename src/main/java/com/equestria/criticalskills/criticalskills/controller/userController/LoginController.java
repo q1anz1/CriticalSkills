@@ -23,6 +23,10 @@ public class LoginController {
 
 
 
+/*
+* TODO 邮箱验证码验证(基础验证,核对申请邮箱,验证码过期时间)
+* TODO sql时间字段的自动注入
+*  */
 
     @PostMapping("/register")
     public Result register(@RequestBody RegisterDTO registerDTO) {

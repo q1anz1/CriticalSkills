@@ -40,6 +40,7 @@ public class EmailSender {
             return new String(numbers);
         }
 
+        //发送6位验证码
         public void sendVerifyCode(EmailSendDTO emailSendDTO) throws MessagingException {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
