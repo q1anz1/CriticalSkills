@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
         String password = registerDTO.getPassword();
 
-        if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")==false){
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
             throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
         }
 
@@ -91,6 +91,9 @@ public class UserServiceImpl implements UserService {
         Account account=accountMapper.selectByUsername(forgetBySecurityDTO.getUsername());
         String findSecurityAsk=account.getSecurityAsk();
         String findSecurityAns=account.getSecurityAns();
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
+            throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
+        }
         if (securityAsk.equals(findSecurityAsk)&&securityAns.equals(findSecurityAns)){
             accountMapper.updatePassword(username,password);
         }
@@ -108,7 +111,9 @@ public class UserServiceImpl implements UserService {
         String password=forgetByEmailDTO.getPassword();
         String email=forgetByEmailDTO.getEmail();
         String emailCode=forgetByEmailDTO.getEmailCode();
-
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
+            throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
+        }
         if (true){
             accountMapper.updatePassword(username,password);
         }

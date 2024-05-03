@@ -23,7 +23,8 @@ public class VisitorFilter implements Filter {
             ,"/log/register"
             ,"/log/login"
             , "/log/forget_security"
-            ,"/log/forget_email");
+            ,"/log/forget_email"
+            );
 
 
     @Override
@@ -32,13 +33,11 @@ public class VisitorFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         httpServletResponse.setCharacterEncoding("UTF-8");
         var visitor = httpServletRequest.getAttribute("visitor");
+        String url = httpServletRequest.getRequestURI();
         if (visitor==null) {
             log.info("非游客身份,放行");
             filterChain.doFilter(servletRequest, servletResponse);
-        }
-
-        String url = httpServletRequest.getRequestURI();
-        if (allowRequest.contains(url)){
+        }else if (allowRequest.contains(url)){
             log.info("此请求属于允许游客访问的请求");
             filterChain.doFilter(servletRequest, servletResponse);
         }else {

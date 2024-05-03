@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -42,14 +43,15 @@ public class LoginController {
     public Result<String> login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
         var visitor=httpServletRequest.getAttribute("visitor");
 
-        if(visitor!=null){
-            log.info("有visitor标记,以游客身份登录");
-            return Result.success("游客登录成功");
-        }else if(userService.login(loginDTO)){
-            HashMap<String, String>claims = new HashMap<>();
+        if(userService.login(loginDTO)){
+            Map<String, Object> claims = new HashMap<>();
             claims.put("username",loginDTO.getUsername());
             String token= jsonWebTokenUtil.createToken("jwt",claims,180);
+            httpServletRequest.removeAttribute("visitor");
             return Result.success("用户登录成功,jwt令牌为: "+token);
+        } else if(visitor!=null){
+            log.info("有visitor标记,以游客身份登录");
+            return Result.success("游客登录成功");
         }else {
             return Result.error("登录失败");
         }
