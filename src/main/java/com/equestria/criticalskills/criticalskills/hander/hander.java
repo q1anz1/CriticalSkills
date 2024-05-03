@@ -1,4 +1,5 @@
-package com.equestria.criticalskills.criticalskills;
+/*
+package com.equestria.criticalskills.criticalskills.hander;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +7,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Slf4j
 @Component   //一定不要忘记将处理器加到IOC容器中！
@@ -36,3 +36,4 @@ public class hander implements MetaObjectHandler {
     }
 }
 
+*/

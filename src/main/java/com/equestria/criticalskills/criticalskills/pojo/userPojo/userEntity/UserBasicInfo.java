@@ -1,8 +1,6 @@
 package com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity;
 
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,7 +15,7 @@ public class UserBasicInfo {
     private String qq;
     private String introduction;
     private String avator;
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+//    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserBasicInfoMapper;
+import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
@@ -26,14 +27,22 @@ public class UserServiceImpl implements UserService {
 
 
 
-
+     /*
+     * TODO 邮箱验证码验证(基础验证,核对申请邮箱,验证码过期时间)
+     * TODO sql时间字段的自动注入
+     *  */
     @Override
     public void addUser(RegisterDTO registerDTO) {
         String username= registerDTO.getUsername();
         String email = registerDTO.getEmail();
-        if (accountMapper.findEmail(email)==email||accountMapper.findUsername(username)==username){
+        Account findAccount=accountMapper.selectByUsername(username);
+        if(findAccount!=null) {
             throw new AccountException("用户已存在");
         }
+        if (accountMapper.findEmail(email)!=null){
+            throw new AccountException("该邮箱已被注册");
+        }
+
         String password = registerDTO.getPassword();
 
         if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")==false){
@@ -46,6 +55,7 @@ public class UserServiceImpl implements UserService {
         }else {
             account.setRole(2);
         }
+
         UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
         try {
             accountMapper.insertAccount(account);
@@ -56,8 +66,19 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-
+    /*
+    * TODO 验证码部分
+    * TODO 检测该设备是否是第一次登录
+    * */
+    @Override
+    public boolean login(LoginDTO loginDTO) {
+        String username=loginDTO.getUsername();
+        String password=loginDTO.getPassword();
+        Account account=accountMapper.selectByUsername(username);
+        if (account==null){return false;}
+        if (!account.getPassword().equals(password)){return false;}
+        return account.getRole()!=0;
+    }
 
 
 }
