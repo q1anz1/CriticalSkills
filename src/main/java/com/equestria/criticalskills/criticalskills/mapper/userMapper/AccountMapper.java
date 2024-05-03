@@ -4,6 +4,7 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Acco
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface AccountMapper {
@@ -19,6 +20,7 @@ public interface AccountMapper {
             "VALUES(#{username},#{password},#{email},#{securityAsk},#{securityAns},#{role},#{createTime},#{updateTime})")
     void insertAccount(Account account);
 
-
+    @Update("update account set password=#{password} where username=#{username}")
+    void updatePassword(String username,String password);
 
 }
