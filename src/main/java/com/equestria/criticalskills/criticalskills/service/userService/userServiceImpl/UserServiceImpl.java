@@ -2,6 +2,7 @@ package com.equestria.criticalskills.criticalskills.service.userService.userServ
 
 import cn.hutool.core.bean.BeanUtil;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
+import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserBasicInfoMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
@@ -84,10 +85,14 @@ public class UserServiceImpl implements UserService {
         String verification=loginDTO.getVerification();
         String realVerification=redisTemplate.opsForValue().get(username+"Verification");
         if (!verification.equals(realVerification)){
-            return false;
+            throw new  LoginException("图片验证码错误");
         }
-        if (account==null){return false;}
-        if (!account.getPassword().equals(password)){return false;}
+        if (account==null){
+            throw new  LoginException("此用户不存在");
+        }
+        if (!account.getPassword().equals(password)){
+            throw new  LoginException("密码错误");
+        }
         return account.getRole()!=0;
     }
 

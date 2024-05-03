@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @RestController
-public class VerificationController extends HttpServlet {
+public class VeryficationController extends HttpServlet {
 
     final private RedisTemplate<String,String>redisTemplate;
 
