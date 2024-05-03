@@ -42,7 +42,7 @@ public class JsonWebTokenFilter implements Filter {
 
         String url = httpServletRequest.getRequestURI();
 
-        if (url.equals("/register")||url.equals("/login")){
+        if (url.equals("/log/register")||url.equals("/log/login")){
             log.info("游客的登录和注册请求,直接放行");
             httpServletRequest.setAttribute("visitor",true);
             filterChain.doFilter(servletRequest, servletResponse);

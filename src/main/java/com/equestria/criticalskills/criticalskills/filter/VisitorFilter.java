@@ -25,7 +25,7 @@ public class VisitorFilter implements Filter {
         }
 
         String url = httpServletRequest.getRequestURI();
-        if (url.equals("/send_verify_code")||url.equals("/register")||url.equals("/login")){
+        if (url.equals("/log/send_verify_code")||url.equals("/log/register")||url.equals("/log/login")){
             log.info("此请求属于允许游客访问的请求");
             filterChain.doFilter(servletRequest, servletResponse);
         }else {

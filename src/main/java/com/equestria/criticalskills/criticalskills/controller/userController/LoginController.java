@@ -29,14 +29,14 @@ public class LoginController {
 
 
 
-    @PostMapping("/register")
+    @PostMapping("/log/register")
     public Result register(@RequestBody RegisterDTO registerDTO) {
             userService.addUser(registerDTO);
             return Result.success("注册成功");
 
     }
 
-    @PostMapping("/login")
+    @PostMapping("/log/login")
     public Result login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
         var visitor=httpServletRequest.getAttribute("visitor");
 
