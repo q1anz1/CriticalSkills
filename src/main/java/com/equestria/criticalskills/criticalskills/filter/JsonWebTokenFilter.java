@@ -7,12 +7,14 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 @Order(1)
@@ -41,18 +43,23 @@ public class JsonWebTokenFilter implements Filter {
         String url = httpServletRequest.getRequestURI();
 
         if (url.equals("/register")||url.equals("/login")){
+            log.info("游客的登录和注册请求,直接放行");
+            httpServletRequest.setAttribute("visitor",true);
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
             String token = getAccessToken(httpServletRequest);
             if (token != null&&token.length()!=0){
                 if (jsonWebTokenUtil.verifyToken(token)){
+                    log.info("用户已登录,放行");
                     filterChain.doFilter(servletRequest, servletResponse);
                 }else {
+                    log.info("用户登录超时,变成游客身份");
                     httpServletRequest.setAttribute("visitor",true);
                     filterChain.doFilter(servletRequest, servletResponse);
                     throw new LoginException("非法jwt令牌");
                 }
             }else {
+                log.info("未登录,以游客身份访问");
                 httpServletRequest.setAttribute("visitor",true);
                 filterChain.doFilter(servletRequest, servletResponse);
             }
