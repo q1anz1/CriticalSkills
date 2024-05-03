@@ -7,6 +7,7 @@ import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import com.equestria.criticalskills.criticalskills.utils.JsonWebTokenUtil;
 import com.equestria.criticalskills.criticalskills.exception.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,13 +37,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestBody LoginDTO loginDTO) {
-        
-            if (userService.login(loginDTO)){
+    public Result login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
+            var visitor=httpServletRequest.getAttribute("visitor");
+
+            if(visitor!=null){
+                return Result.success("游客登录成功");
+            } else if (visitor==null&&userService.login(loginDTO)){
                 HashMap<String, String>claims = new HashMap<>();
                 claims.put("username",loginDTO.getUsername());
                 String token= jsonWebTokenUtil.createToken("jwt",claims,3);
-                return Result.success("登录成功,jwt令牌为: "+token);
+                return Result.success("用户登录成功,jwt令牌为: "+token);
             }else {
                 return Result.error("登录失败");
             }

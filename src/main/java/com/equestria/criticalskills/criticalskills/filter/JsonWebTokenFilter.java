@@ -40,7 +40,7 @@ public class JsonWebTokenFilter implements Filter {
 
         String url = httpServletRequest.getRequestURI();
 
-        if (url.equals("/register")||url.equals("/login")||url.equals("/send_verify_code")){
+        if (url.equals("/register")||url.equals("/login")){
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
             String token = getAccessToken(httpServletRequest);
@@ -48,6 +48,8 @@ public class JsonWebTokenFilter implements Filter {
                 if (jsonWebTokenUtil.verifyToken(token)){
                     filterChain.doFilter(servletRequest, servletResponse);
                 }else {
+                    httpServletRequest.setAttribute("visitor",true);
+                    filterChain.doFilter(servletRequest, servletResponse);
                     throw new LoginException("非法jwt令牌");
                 }
             }else {
