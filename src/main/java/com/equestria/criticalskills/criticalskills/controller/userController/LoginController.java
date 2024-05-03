@@ -3,6 +3,8 @@ package com.equestria.criticalskills.criticalskills.controller.userController;
 
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import com.equestria.criticalskills.criticalskills.utils.JsonWebTokenUtil;
@@ -30,14 +32,14 @@ public class LoginController {
 
 
     @PostMapping("/log/register")
-    public Result register(@RequestBody RegisterDTO registerDTO) {
+    public Result<String> register(@RequestBody RegisterDTO registerDTO) {
             userService.addUser(registerDTO);
             return Result.success("注册成功");
 
     }
 
     @PostMapping("/log/login")
-    public Result login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
+    public Result<String> login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
         var visitor=httpServletRequest.getAttribute("visitor");
 
         if(visitor!=null){
@@ -54,6 +56,17 @@ public class LoginController {
 
     }
 
+    @PostMapping("/log/forget_security")
+    public Result forgetBySecurity(@RequestBody ForgetBySecurityDTO forgetBySecurityDTO) {
+        userService.updatePasswordBySecurity(forgetBySecurityDTO);
+        return Result.success("密码修改完成");
+    }
+
+    @PostMapping("/log/forget_email")
+    public Result forgetByEmail(@RequestBody ForgetByEmailDTO forgetByEmailDTO) {
+        userService.updatePasswordByEmail(forgetByEmailDTO);
+        return Result.success("密码修改完成");
+    }
 
 
 }

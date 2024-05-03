@@ -9,10 +9,23 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Component
 @Order(2)
 public class VisitorFilter implements Filter {
+
+    //允许游客访问的请求的集合
+    private List<String> allowRequest=List.of(
+             "/log/send_verify_code"
+            ,"/log/register"
+            ,"/log/login"
+            , "/log/forget_security"
+            ,"/log/forget_email");
+
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
@@ -25,7 +38,7 @@ public class VisitorFilter implements Filter {
         }
 
         String url = httpServletRequest.getRequestURI();
-        if (url.equals("/log/send_verify_code")||url.equals("/log/register")||url.equals("/log/login")){
+        if (allowRequest.contains(url)){
             log.info("此请求属于允许游客访问的请求");
             filterChain.doFilter(servletRequest, servletResponse);
         }else {

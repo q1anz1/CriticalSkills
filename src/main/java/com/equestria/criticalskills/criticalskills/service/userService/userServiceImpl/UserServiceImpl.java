@@ -6,6 +6,8 @@ import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapp
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserBasicInfoMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
@@ -78,6 +80,39 @@ public class UserServiceImpl implements UserService {
         if (account==null){return false;}
         if (!account.getPassword().equals(password)){return false;}
         return account.getRole()!=0;
+    }
+
+    @Override
+    public void updatePasswordBySecurity(ForgetBySecurityDTO forgetBySecurityDTO) {
+        String securityAsk=forgetBySecurityDTO.getSecurityAsk();
+        String securityAns=forgetBySecurityDTO.getSecurityAns();
+        String username=forgetBySecurityDTO.getUsername();
+        String password=forgetBySecurityDTO.getPassword();
+        Account account=accountMapper.selectByUsername(forgetBySecurityDTO.getUsername());
+        String findSecurityAsk=account.getSecurityAsk();
+        String findSecurityAns=account.getSecurityAns();
+        if (securityAsk.equals(findSecurityAsk)&&securityAns.equals(findSecurityAns)){
+            accountMapper.updatePassword(username,password);
+        }
+
+
+    }
+
+
+    /*
+    * TODO 验证码部分
+    * */
+    @Override
+    public void updatePasswordByEmail(ForgetByEmailDTO forgetByEmailDTO) {
+        String username=forgetByEmailDTO.getUsername();
+        String password=forgetByEmailDTO.getPassword();
+        String email=forgetByEmailDTO.getEmail();
+        String emailCode=forgetByEmailDTO.getEmailCode();
+
+        if (true){
+            accountMapper.updatePassword(username,password);
+        }
+
     }
 
 
