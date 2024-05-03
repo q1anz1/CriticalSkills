@@ -1,4 +1,3 @@
-/*
 package com.equestria.criticalskills.criticalskills.config;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,4 +24,3 @@ public class RedisConfig {
 }
 
 
-*/
