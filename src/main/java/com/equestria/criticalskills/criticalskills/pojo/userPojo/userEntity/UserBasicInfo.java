@@ -15,7 +15,6 @@ public class UserBasicInfo {
     private String email;
     private String phone;
     private String qq;
-    private String introduction;
     private String avator;
     private LocalDateTime updateTime;
 
