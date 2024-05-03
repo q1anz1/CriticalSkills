@@ -14,6 +14,7 @@ import com.equestria.criticalskills.criticalskills.service.userService.UserServi
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -26,18 +27,22 @@ public class UserServiceImpl implements UserService {
 
     private final AccountMapper accountMapper;
     private final UserBasicInfoMapper userBasicInfoMapper;
-
+    private final RedisTemplate<String,String> redisTemplate;
 
 
      /*
-     * TODO 邮箱验证码验证(基础验证,核对申请邮箱,验证码过期时间)
      * TODO sql时间字段的自动注入
      *  */
     @Override
     public void addUser(RegisterDTO registerDTO) {
         String username= registerDTO.getUsername();
         String email = registerDTO.getEmail();
+        String emailCode = registerDTO.getEmailCode();
         Account findAccount=accountMapper.selectByUsername(username);
+        String realEmailCode=redisTemplate.opsForValue().get(email+"EmailCode");
+        if (!emailCode.equals(realEmailCode)){
+            throw new AccountException("验证码错误");
+        }
         if(findAccount!=null) {
             throw new AccountException("用户已存在");
         }
@@ -69,7 +74,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /*
-    * TODO 验证码部分
     * TODO 检测该设备是否是第一次登录
     * */
     @Override
@@ -111,6 +115,10 @@ public class UserServiceImpl implements UserService {
         String password=forgetByEmailDTO.getPassword();
         String email=forgetByEmailDTO.getEmail();
         String emailCode=forgetByEmailDTO.getEmailCode();
+        String realEmailCode=redisTemplate.opsForValue().get(email+"EmailCode");
+        if (!emailCode.equals(realEmailCode)){
+            throw new AccountException("验证码错误");
+        }
         if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
             throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
         }
