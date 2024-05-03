@@ -81,6 +81,11 @@ public class UserServiceImpl implements UserService {
         String username=loginDTO.getUsername();
         String password=loginDTO.getPassword();
         Account account=accountMapper.selectByUsername(username);
+        String verification=loginDTO.getVerification();
+        String realVerification=redisTemplate.opsForValue().get(username+"Verification");
+        if (!verification.equals(realVerification)){
+            return false;
+        }
         if (account==null){return false;}
         if (!account.getPassword().equals(password)){return false;}
         return account.getRole()!=0;
