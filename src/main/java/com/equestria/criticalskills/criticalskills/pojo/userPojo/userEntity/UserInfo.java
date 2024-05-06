@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-public class UserBasicInfo {
+public class UserInfo {
     private String username;
     private Integer age;
     private Integer gender;
@@ -16,6 +16,7 @@ public class UserBasicInfo {
     private String phone;
     private String qq;
     private String avator;
+    private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
 }

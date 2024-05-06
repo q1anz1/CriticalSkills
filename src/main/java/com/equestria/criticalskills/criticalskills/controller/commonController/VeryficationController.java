@@ -58,7 +58,7 @@ public class VeryficationController extends HttpServlet {
             g.drawString(Character.toString(rand), 13 * i + 25, 30);
         }
         redisTemplate.opsForValue().set(username+"Verification", sRand);
-        redisTemplate.expire(username+"verification",180, TimeUnit.SECONDS);
+        redisTemplate.expire(username+"Verification",180, TimeUnit.SECONDS);
         // 将图像转换为 base64 字符串
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
