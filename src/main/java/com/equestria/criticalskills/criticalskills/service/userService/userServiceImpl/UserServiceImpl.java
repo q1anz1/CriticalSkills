@@ -147,14 +147,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //根据id返回用户信息
     @Override
     public User getUserById(Long id) {
-        return baseMapper.selectById(id);
+        return userMapper.selectById(id);
     }
 
     //修改用户
     @Override
     @Transactional
     public int updateUser(User user) {
-        return baseMapper.updateById(user);
+        return userMapper.updateById(user);
     }
 
     //清空用户
