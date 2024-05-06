@@ -1,7 +1,6 @@
 package com.equestria.criticalskills.criticalskills.service.userService.userServiceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
@@ -13,16 +12,14 @@ import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterD
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
-
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
-
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 @Slf4j
 @Service
@@ -140,8 +137,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     }
-
-
 
 
 
