@@ -17,6 +17,9 @@ public class UserController {
     @GetMapping("/user/find_user")
     public Result getUserById(@RequestParam Long id){
         User user = userService.getUserById(id);
+        if (user == null){
+            return Result.error("用户不存在");
+        }
         return Result.success(user);
     }
 
