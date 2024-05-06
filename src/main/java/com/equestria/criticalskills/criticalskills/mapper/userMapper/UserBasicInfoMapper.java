@@ -1,3 +1,4 @@
+/*
 package com.equestria.criticalskills.criticalskills.mapper.userMapper;
 
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
@@ -13,3 +14,4 @@ public interface UserBasicInfoMapper {
 
 
 }
+*/

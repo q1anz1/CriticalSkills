@@ -26,6 +26,9 @@ public class VisitorFilter implements Filter {
             ,"/log/forget_email"
             ,"/send_verify_code"
             ,"/get_verification"
+            ,"/user/find_user"
+            ,"/user/modify_user"
+            ,"/user/clear_user"
             );
 
 

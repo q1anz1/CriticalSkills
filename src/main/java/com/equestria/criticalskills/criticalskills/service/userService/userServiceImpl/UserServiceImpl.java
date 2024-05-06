@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
-import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserBasicInfoMapper;
+
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final AccountMapper accountMapper;
-    private final UserBasicInfoMapper userBasicInfoMapper;
+/*    private final UserBasicInfoMapper userBasicInfoMapper;*/
 
     private final RedisTemplate<String,String> redisTemplate;
     private final UserMapper userMapper;
@@ -70,13 +70,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             account.setRole(2);
         }
 
-        UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
+/*        UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
         try {
             accountMapper.insertAccount(account);
             userBasicInfoMapper.insertUserBasicInfo(userBasicInfo);
         }catch (Exception e){
             throw new AccountException(e.getMessage());
-        }
+        }*/
 
     }
 
@@ -144,6 +144,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     }
 
+    //根据id返回用户信息
+    @Override
+    public User getUserById(Long id) {
+        return baseMapper.selectById(id);
+    }
+
     //修改用户
     @Override
     @Transactional
@@ -190,11 +196,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.update(null, updateWrapper);
     }
 
-    //根据id返回用户信息
-    @Override
-    public User getUserById(Long id) {
-        return baseMapper.selectById(id);
-    }
+
 
 
 

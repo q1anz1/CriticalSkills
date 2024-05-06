@@ -3,33 +3,34 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/stu")
+
 public class UserController {
     @Autowired
     private UserService userService;
 
     //根据id返回个人信息
-    @GetMapping("/{id}")
-    public Result getUserById(@PathVariable Long id){
+    @GetMapping("/user/find_user")
+    public Result getUserById(@RequestParam Long id){
         User user = userService.getUserById(id);
         return Result.success(user);
     }
 
 
     //修改
-    @PutMapping
+    @PutMapping("/user/modify_user")
     public Result updateUser(@RequestBody User user){
         userService.updateUser(user);
         return Result.success();
     }
 
     //清空个人信息
-    @PostMapping("/{id}")
-    public Result clearUser(@PathVariable Long id) {
+    @PostMapping("/user/clear_user")
+    public Result clearUser(@RequestParam Long id) {
         userService.clearUser(id);
         return Result.success();
     }
