@@ -23,8 +23,8 @@ public class UploadController {
     private UserService userService;
 
     //上传图片
-    @PutMapping ("/{id}/uploadImage")
-    public Result uploadImage(@RequestParam(required = false)MultipartFile image , @PathVariable Long id) throws IOException {
+    @PutMapping ("/uploadImage")
+    public Result uploadImage(@RequestParam(required = false)MultipartFile image , @RequestParam Long id) throws IOException {
         String url = aliOSSUtils.upload(image);
         log.info("上传文件的url",url);
 
@@ -34,8 +34,8 @@ public class UploadController {
     }
 
     //上传视频
-    @PutMapping ("/{id}/uploadVideo")
-    public Result uploadVideo( @RequestParam(required = false)MultipartFile video , @PathVariable Long id) throws IOException {
+    @PutMapping ("/uploadVideo")
+    public Result uploadVideo( @RequestParam(required = false)MultipartFile video , @RequestParam Long id) throws IOException {
         String url = aliOSSUtils.upload(video);
         log.info("上传文件的url",url);
 
