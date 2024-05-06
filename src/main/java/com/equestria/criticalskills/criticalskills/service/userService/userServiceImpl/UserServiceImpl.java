@@ -35,9 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final UserBasicInfoMapper userBasicInfoMapper;
 
     private final RedisTemplate<String,String> redisTemplate;
-
-
-
+    private final UserMapper userMapper;
 
      /*
      * TODO sql时间字段的自动注入
