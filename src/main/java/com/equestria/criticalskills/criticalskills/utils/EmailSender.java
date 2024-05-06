@@ -2,13 +2,17 @@ package com.equestria.criticalskills.criticalskills.utils;
 
 
 import cn.hutool.extra.template.TemplateEngine;
+import com.equestria.criticalskills.criticalskills.config.RedisConfig;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.EmailSendDTO;
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -18,13 +22,14 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailSender {
 
-
+        private final RedisTemplate<String,String> redisTemplate;
         private final JavaMailSenderImpl mailSender;
 
 
@@ -50,8 +55,12 @@ public class EmailSender {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject("邮箱验证码");
-            helper.setText(generateVerifyCode(6));
+            String emailCode = generateVerifyCode(6);
+            helper.setText("本次验证码为: "+emailCode+" ,该验证码三分钟内有效,此消息为系统自动发送,无需回复");
             mailSender.send(message);
+            redisTemplate.opsForValue().set(to+"EmailCode",emailCode);
+            redisTemplate.expire(to+"EmailCode",120, TimeUnit.SECONDS);
+            log.info("验证码发送成功");
         }
 
 
