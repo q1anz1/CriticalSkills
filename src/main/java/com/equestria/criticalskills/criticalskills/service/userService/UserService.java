@@ -19,13 +19,5 @@ public interface UserService {
 
     void updatePasswordByEmail(ForgetByEmailDTO forgetByEmailDTO);
 
-    int updateUser(User user);
 
-    void clearUser(Long id);
-
-    void uploadImage(Long id, String url);
-
-    void uploadVideo(Long id, String url);
-
-    User getUserById(Long id);
 }
