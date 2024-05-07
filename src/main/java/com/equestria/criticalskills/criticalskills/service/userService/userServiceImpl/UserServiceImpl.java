@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final AccountMapper accountMapper;
     private final UserInfoMapper userInfoMapper;
@@ -138,6 +138,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     }
 
+    @Override
+    public void uploadImage(Long id, String url) {
+
+    }
+
+    @Override
+    public void uploadVideo(Long id, String url) {
+
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User user) {
+
+    }
+
+    @Override
+    public void clearUser(Long id) {
+
+    }
 
 
 }

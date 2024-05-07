@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     private final AdminService adminService;
-    pr
 
-
-    s
 
 
 
