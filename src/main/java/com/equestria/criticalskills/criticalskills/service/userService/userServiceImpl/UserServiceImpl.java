@@ -1,34 +1,40 @@
 package com.equestria.criticalskills.criticalskills.service.userService.userServiceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
-import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserBasicInfoMapper;
+import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
+import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
-import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
+
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
+
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final AccountMapper accountMapper;
-    private final UserBasicInfoMapper userBasicInfoMapper;
+    private final UserInfoMapper userInfoMapper;
+
     private final RedisTemplate<String,String> redisTemplate;
+
+
 
 
      /*
@@ -47,6 +53,7 @@ public class UserServiceImpl implements UserService {
         if(findAccount!=null) {
             throw new AccountException("用户已存在");
         }
+
         if (accountMapper.findEmail(email)!=null){
             throw new AccountException("该邮箱已被注册");
         }
@@ -58,20 +65,16 @@ public class UserServiceImpl implements UserService {
         }
 
         Account account= BeanUtil.copyProperties(registerDTO, Account.class);
+        UserInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserInfo.class);
         if (registerDTO.getInvite().equals("Equestria")){
             account.setRole(3);
         }else {
             account.setRole(2);
         }
 
-        UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
-        try {
-            accountMapper.insertAccount(account);
-            userBasicInfoMapper.insertUserBasicInfo(userBasicInfo);
-        }catch (Exception e){
-            throw new AccountException(e.getMessage());
-        }
 
+            accountMapper.insertAccount(account);
+            userInfoMapper.insertUserBasicInfo(userBasicInfo);
     }
 
     /*
@@ -137,6 +140,9 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+
+
 
 
 }
