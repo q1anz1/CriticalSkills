@@ -14,8 +14,14 @@ public interface UserMapper extends BaseMapper<User> {
 @Select("SELECT * FROM user_info WHERE id = #{id}")
     User selectById(Long id);
 
-    int updateById(User user);
-
+    void updateInUser(User user);
+    void updateInAccount(User user);
     void clearUserFields(Long id);
+
+    void updateAvator(@Param("id") Long id, @Param("avator") String url);
+    void updatePhoto(@Param("id") Long id, @Param("photo") String urls);
+    void updateVideo(@Param("id") Long id, @Param("video") String url);
+
+
 
 }

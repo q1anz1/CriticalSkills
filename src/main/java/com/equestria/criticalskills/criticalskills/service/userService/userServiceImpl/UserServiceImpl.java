@@ -153,8 +153,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //修改用户
     @Override
     @Transactional
-    public int updateUser(User user) {
-        return userMapper.updateById(user);
+    public void updateUser(User user) {
+         userMapper.updateInUser(user);
+         userMapper.updateInAccount(user);
     }
 
     //清空用户
@@ -182,24 +183,37 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.update(null, updateWrapper);
     }*/
 
+    //上传头像
+    @Override
+    public void uploadAvator(Long id, String url) {
+        userMapper.updateAvator(id, url);
+    }
+
     //上传图片
     @Override
+    public void uploadPhoto(Long id, String url) {
+        userMapper.updatePhoto(id, url);
+    }
+/*    @Override
     public void uploadImage(Long id, String url) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("image", url)
+        updateWrapper.set("photo", url)
                 .eq("id", id);
         userMapper.update(null, updateWrapper);
-    }
+    }*/
 
     //上传视频
     @Override
+    public void uploadVideo(Long id, String url) {
+        userMapper.updateVideo(id, url);
+    }
+/*    @Override
     public void uploadVideo(Long id, String url) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("video", url)
                 .eq("id", id);
         userMapper.update(null, updateWrapper);
-    }
-
+    }*/
 
 
 

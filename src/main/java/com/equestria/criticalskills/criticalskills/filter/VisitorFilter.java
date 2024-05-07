@@ -29,6 +29,9 @@ public class VisitorFilter implements Filter {
             ,"/user/find_user"
             ,"/user/modify_user"
             ,"/user/clear_user"
+            ,"/uploadAvator"
+            ,"/uploadPhotos"
+            ,"/uploadVideos"
             );
 
 

@@ -6,6 +6,8 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetB
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 
+import java.util.List;
+
 
 public interface UserService {
 
@@ -19,13 +21,18 @@ public interface UserService {
 
     void updatePasswordByEmail(ForgetByEmailDTO forgetByEmailDTO);
 
-    int updateUser(User user);
+    User getUserById(Long id);
+
+    void updateUser(User user);
 
     void clearUser(Long id);
 
-    void uploadImage(Long id, String url);
+
 
     void uploadVideo(Long id, String url);
 
-    User getUserById(Long id);
+    void uploadAvator(Long id, String url);
+
+
+    void uploadPhoto(Long id, String url);
 }

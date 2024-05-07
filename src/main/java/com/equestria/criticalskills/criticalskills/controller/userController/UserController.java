@@ -28,29 +28,15 @@ public class UserController {
     @PutMapping("/user/modify_user")
     public Result updateUser(@RequestBody User user){
         userService.updateUser(user);
-        return Result.success();
+        return Result.success("修改成功");
     }
 
     //清空个人信息
     @PostMapping("/user/clear_user")
     public Result clearUser(@RequestParam Long id) {
         userService.clearUser(id);
-        return Result.success();
+        return Result.success("清空成功");
     }
-
-    //条件分页查询
-/*    @GetMapping
-    public Result searchUsers(@RequestParam(required = false) String name,
-                              @RequestParam(required = false) Integer gender,
-                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end,
-                              @RequestParam(required = false) String province,
-                              @RequestParam(required = false) String city,
-                              @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "10") int pageSize) {
-        PageBean userPage = userService.queryUser(name, gender, begin, end, province, city, page, pageSize);
-        return Result.success(userPage);
-    }*/
 
 
     }

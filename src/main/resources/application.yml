@@ -4,6 +4,7 @@ server:
 
 spring:
 
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/critical_skills_works
@@ -35,7 +36,15 @@ spring:
       port: 6379
       password:
 
+  servlet:
+    multipart:
+      max-file-size: 10240MB
+      max-request-size: 10240MB
+
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+
+

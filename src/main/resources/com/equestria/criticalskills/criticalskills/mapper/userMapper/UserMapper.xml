@@ -4,9 +4,8 @@
 <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
 
-    <update id="updateById"
+    <update id="updateInUser"
             parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
-
             UPDATE user_info
             <set>
                 <if test="username != null">username = #{username},</if>
@@ -23,6 +22,16 @@
             </set>
             WHERE id = #{id}
     </update>
+    <update id="updateInAccount"
+            parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
+        UPDATE account
+        <set>
+        <if test="username != null">username = #{username},</if>
+            update_time = NOW(),
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <update id="clearUserFields" parameterType="java.lang.Long">
         UPDATE user_info
         SET
@@ -38,7 +47,27 @@
             avator = NULL,
             photo = NULL,
             introduction = NULL,
-            update_time = now()
         WHERE id = #{id}
     </update>
+
+    <update id="updateAvator">
+        UPDATE user_info
+        SET avator = #{avator}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updatePhoto">
+        UPDATE user_info
+        SET photo = #{photo}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateVideo">
+        UPDATE user_info
+        SET video = #{video}
+        WHERE id = #{id}
+    </update>
+
+
+
 </mapper>
