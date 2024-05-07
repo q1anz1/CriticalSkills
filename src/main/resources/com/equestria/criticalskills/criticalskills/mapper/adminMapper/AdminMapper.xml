@@ -11,4 +11,24 @@
 
     </update>
 
+
+    <select id="selectUserInfos" resultType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
+        select * from user_info
+       <where>
+            <if test="username != null and username!='' ">and username like concat('%',#{username},'%')</if>
+            <if test="age != null and age !='' ">and age = #{age}</if>
+            <if test="gender != null and gender !='' ">and gender = #{gender}</if>
+            <if test="birthDate != null and birthDate !='' ">and birth_date like concat('%',#{birthDate},'%')</if>
+            <if test="email != null and email !='' ">and email = #{email}</if>
+            <if test="phone != null and phone !='' ">and phone = #{phone}</if>
+            <if test="qq != null and qq !='' ">and qq = #{qq}</if>
+            <if test="avator != null and avator !='' ">and avator = #{avator}</if>
+            <if test="province != null and province !='' ">and province = #{province}</if>
+            <if test="city != null and city !='' ">and city = #{city}</if>
+        </where>
+        limit #{startIndex},#{pageSize}
+
+    </select>
+
+
 </mapper>

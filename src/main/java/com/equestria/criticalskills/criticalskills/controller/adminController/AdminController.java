@@ -1,14 +1,13 @@
 package com.equestria.criticalskills.criticalskills.controller.adminController;
 
 
-import com.equestria.criticalskills.criticalskills.mapper.adminMapper.AdminMapper;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.SelectUserDTO;
+import com.equestria.criticalskills.criticalskills.result.PageResult;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.adminService.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +26,11 @@ public class AdminController {
 
     }
 
+    @PostMapping("/admin/find_user")
+    public Result<PageResult> findUser(@RequestBody SelectUserDTO selectUserDTO) {
+        PageResult pageResult=adminService.selectUsers(selectUserDTO);
+        return Result.success(pageResult);
+    }
 
 
 }

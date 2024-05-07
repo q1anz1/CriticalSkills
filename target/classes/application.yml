@@ -37,5 +37,13 @@ spring:
 
 
 mybatis:
+
+  configuration-properties:
+    helperDialect: mysql
+    offsetAsPageNum: true
+    rowBoundsWithCount: true
+    reasonable: true
+  mapper-locations: mybatis/mapper/*.xml
+
   configuration:
     map-underscore-to-camel-case: true
