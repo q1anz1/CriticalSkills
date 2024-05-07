@@ -88,11 +88,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.11</version>
         </dependency>
-<!--        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.2</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <version>3.5.2</version>
+                </dependency>-->
         <!-- 邮箱验证码依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -121,7 +121,7 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-<!--阿里云oss-->
+        <!--阿里云oss-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>

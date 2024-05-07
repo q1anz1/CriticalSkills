@@ -160,6 +160,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //清空用户
     @Override
     public void clearUser(Long id) {
+        userMapper.clearUserFields(id);
+    }
+/*    @Override
+    public void clearUser(Long id) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         // 假设除了id和username外，User实体类还有email和phone字段
         updateWrapper.set("name",null)
@@ -176,7 +180,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 执行更新操作，只更新除了id和username之外的字段
         userMapper.update(null, updateWrapper);
-    }
+    }*/
 
     //上传图片
     @Override

@@ -13,5 +13,5 @@ public interface UserBasicInfoMapper {
     void insertUserBasicInfo(UserBasicInfo userBasicInfo);
 
 
-}
-*/
+}*/
+
