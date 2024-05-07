@@ -1,3 +1,4 @@
+/*
 package com.equestria.criticalskills.criticalskills.filter;
 
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
@@ -65,3 +66,4 @@ public class JsonWebTokenFilter implements Filter {
 
 
 }
+*/
