@@ -3,6 +3,7 @@ package com.equestria.criticalskills.criticalskills.controller.adminController;
 
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.SystemMsgDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.SelectUserDTO;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.result.PageResult;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.adminService.AdminService;
@@ -21,9 +22,9 @@ public class AdminController {
     private final AdminService adminService;
 
     @DeleteMapping("/admin/delete_user")
-    public Result deleteUsers(@RequestParam List<String> ids) {
+    public Result deleteUsers(@RequestParam List<String> usernames) {
 
-        adminService.deleteUsers(ids);
+        adminService.deleteUsers(usernames);
         return Result.success("删除用户成功");
 
     }
@@ -38,6 +39,13 @@ public class AdminController {
     public Result sendSystemMsg(@RequestBody SystemMsgDTO systemMsgDTO) throws MessagingException {
         adminService.sendSystemMsg(systemMsgDTO);
         return Result.success("系统消息已成功发送");
+    }
+
+    @PutMapping("/admin/edit_user")
+    public Result editUser(@RequestBody UserInfo userInfo){
+        adminService.editUser(userInfo);
+        return Result.success("用户信息修改成功");
+
     }
 
 

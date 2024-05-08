@@ -5,8 +5,8 @@
 <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.adminMapper.AdminMapper">
     <update id="deleteUsers">
         update account set role=0 where username in
-        <foreach collection="ids" item="id" separator="," open="(" close=")">
-            #{id}
+        <foreach collection="usernames" item="username" separator="," open="(" close=")">
+            #{username}
         </foreach>
 
     </update>
@@ -30,5 +30,22 @@
 
     </select>
 
+    <update id="updateUser">
+        update user_info
+        <set>
+            <if test="username != null and username!='' "> username = #{username},</if>
+            <if test="age != null and age !='' "> age = #{age},</if>
+            <if test="gender != null and gender !='' "> gender = #{gender},</if>
+            <if test="birthDate != null and birthDate !='' "> birth_date = #{birthDate},</if>
+            <if test="email != null and email !='' "> email = #{email},</if>
+            <if test="phone != null and phone !='' "> phone = #{phone},</if>
+            <if test="qq != null and qq !='' "> qq = #{qq},</if>
+            <if test="avator != null and avator !='' "> avator = #{avator},</if>
+            <if test="province != null and province !='' "> province = #{province},</if>
+            <if test="city != null and city !='' "> city = #{city},</if>
+            <if test="introduction != null and introduction != '' "> introduction= #{introduction},</if>
+        </set>
+        where username= #{username}
+    </update>
 
 </mapper>

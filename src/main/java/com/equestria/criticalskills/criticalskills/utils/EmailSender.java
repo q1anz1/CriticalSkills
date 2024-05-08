@@ -85,6 +85,7 @@ public class EmailSender {
 
             helper.setFrom(from);
             helper.setTo(toUsers);
+            helper.setSubject("系统消息");
             helper.setText(msg);
             mailSender.send(message);
             log.info("系统消息发送成功");
