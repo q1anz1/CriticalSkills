@@ -46,7 +46,7 @@
             city = NULL,
             avator = NULL,
             photo = NULL,
-            introduction = NULL,
+            introduction = NULL
         WHERE id = #{id}
     </update>
 
