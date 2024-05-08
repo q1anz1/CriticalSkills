@@ -1,10 +1,12 @@
 package com.equestria.criticalskills.criticalskills.controller.adminController;
 
 
+import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.SystemMsgDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.SelectUserDTO;
 import com.equestria.criticalskills.criticalskills.result.PageResult;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.adminService.AdminService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,12 @@ public class AdminController {
     public Result<PageResult> findUser(@RequestBody SelectUserDTO selectUserDTO) {
         PageResult pageResult=adminService.selectUsers(selectUserDTO);
         return Result.success(pageResult);
+    }
+
+    @PostMapping("/admin/system_msg")
+    public Result sendSystemMsg(@RequestBody SystemMsgDTO systemMsgDTO) throws MessagingException {
+        adminService.sendSystemMsg(systemMsgDTO);
+        return Result.success("系统消息已成功发送");
     }
 
 
