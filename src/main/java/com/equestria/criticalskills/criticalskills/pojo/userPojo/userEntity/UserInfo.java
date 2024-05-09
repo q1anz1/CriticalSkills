@@ -5,74 +5,24 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
-/**
- * UserInfo
- */
-@lombok.Data
-@TableName("user_info")
+
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
 public class UserInfo {
-        /**
-         * 年龄
-         */
-        private Long age;
-        /**
-         * 头像的url地址
-         */
-        private String avator;
-        /**
-         * 生日
-         */
-        private LocalDate birthDate;
-        /**
-         * 城市
-         */
-        private String city;
-        /**
-         * 创建时间
-         */
-        private OffsetDateTime createTime;
-        /**
-         * 邮箱
-         */
-        private String email;
-        /**
-         * 性别
-         */
-        private Long gender;
-        /**
-         * 用户id
-         */
-        private long id;
-        /**
-         * 个人介绍
-         */
-        private String introduction;
-        /**
-         * 联系电话
-         */
-        private String phone;
-        /**
-         * 图片的url集合
-         */
-        private String photo;
-        /**
-         * 省份
-         */
-        private String province;
-        /**
-         * QQ号
-         */
-        private String qq;
-        /**
-         * 更新时间
-         */
-        private OffsetDateTime updateTime;
-        /**
-         * 用户名
-         */
-        private String username;
-        /**
-         * 视频的url集合
-         */
-        private String video;
+    private String username;
+    private Integer age;
+    private Integer gender;
+    private LocalDate birthDate;
+    private String email;
+    private String phone;
+    private String qq;
+    private String avator;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+
 }
+

@@ -1,11 +1,12 @@
 package com.equestria.criticalskills.criticalskills.service.userService.userServiceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
+
+import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
 
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
@@ -13,31 +14,28 @@ import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterD
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
-import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
+
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
+
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implements UserService {
+public class UserServiceImpl implements UserService {
+
 
     private final AccountMapper accountMapper;
-/*    private final UserBasicInfoMapper userBasicInfoMapper;*/
-
+    private final UserInfoMapper userInfoMapper;
     private final RedisTemplate<String,String> redisTemplate;
-
+    private final UserMapper userMapper;
 
 
      /*
@@ -56,6 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         if(findAccount!=null) {
             throw new AccountException("用户已存在");
         }
+
         if (accountMapper.findEmail(email)!=null){
             throw new AccountException("该邮箱已被注册");
         }
@@ -67,20 +66,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
         }
 
         Account account= BeanUtil.copyProperties(registerDTO, Account.class);
+        UserInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserInfo.class);
         if (registerDTO.getInvite().equals("Equestria")){
             account.setRole(3);
         }else {
             account.setRole(2);
         }
-
-/*        UserBasicInfo userBasicInfo=BeanUtil.copyProperties(registerDTO, UserBasicInfo.class);
-        try {
             accountMapper.insertAccount(account);
-            userBasicInfoMapper.insertUserBasicInfo(userBasicInfo);
-        }catch (Exception e){
-            throw new AccountException(e.getMessage());
-        }*/
-
+            userInfoMapper.insertUserBasicInfo(userBasicInfo);
     }
 
     /*
@@ -148,116 +141,39 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implement
     }
     //根据id返回用户信息
     @Override
-    public UserInfo getUserById(Long id) {
-        return this.getBaseMapper().selectById(id);
-    }
-
-    //根据id返回用户信息
-    @Override
     public User getUserById(Long id) {
         return userMapper.selectById(id);
     }
 
     //修改用户
     @Override
-<<<<<<< Updated upstream
-    @Transactional
     public void updateUser(User user) {
-         userMapper.updateInUser(user);
-         userMapper.updateInAccount(user);
-=======
-    public int updateUser(UserInfo user) {
-        return this.getBaseMapper().updateById(user);
->>>>>>> Stashed changes
+        userMapper.updateInUser(user);
+        userMapper.updateInAccount(user);
     }
 
     //清空用户
     @Override
     public void clearUser(Long id) {
-<<<<<<< Updated upstream
         userMapper.clearUserFields(id);
     }
-/*    @Override
-=======
-
-    }
-
-
-    /*@Override
->>>>>>> Stashed changes
-    public void clearUser(Long id) {
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        // 假设除了id和username外，User实体类还有email和phone字段
-        updateWrapper.set("name",null)
-                .set("gender",null)
-                .set("image",null)
-                .set("video",null)
-                .set("birthday",null)
-                .set("email", null)
-                .set("phone", null)
-                .set("province",null)
-                .set("city",null)
-                .set("introduce",null)
-                .eq("id", id);
-
-        // 执行更新操作，只更新除了id和username之外的字段
-<<<<<<< Updated upstream
-        userMapper.update(null, updateWrapper);
-    }*/
 
     //上传头像
     @Override
     public void uploadAvator(Long id, String url) {
         userMapper.updateAvator(id, url);
     }
-=======
-        this.getBaseMapper().update(null, updateWrapper);
-    }*/
->>>>>>> Stashed changes
 
     //上传图片
     @Override
     public void uploadPhoto(Long id, String url) {
         userMapper.updatePhoto(id, url);
     }
-/*    @Override
-    public void uploadImage(Long id, String url) {
-<<<<<<< Updated upstream
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("photo", url)
-                .eq("id", id);
-        userMapper.update(null, updateWrapper);
-    }*/
-=======
-        UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("image", url)
-                .eq("id", id);
-        this.getBaseMapper().update(null, updateWrapper);
-    }
->>>>>>> Stashed changes
 
-    //上传视频
+
     @Override
     public void uploadVideo(Long id, String url) {
-<<<<<<< Updated upstream
         userMapper.updateVideo(id, url);
     }
-/*    @Override
-    public void uploadVideo(Long id, String url) {
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("video", url)
-                .eq("id", id);
-        userMapper.update(null, updateWrapper);
-    }*/
 
-
-
-
-=======
-        UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("video", url)
-                .eq("id", id);
-        this.getBaseMapper().update(null, updateWrapper);
     }
->>>>>>> Stashed changes
-}
