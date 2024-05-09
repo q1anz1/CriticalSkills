@@ -3,6 +3,7 @@ package com.equestria.criticalskills.criticalskills.controller.userController;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import com.equestria.criticalskills.criticalskills.utils.AliOSSUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -19,36 +20,26 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class UploadController {
-    @Autowired
-    private AliOSSUtils aliOSSUtils;
-    @Autowired
-    private UserService userService;
 
-<<<<<<< Updated upstream
+    private final AliOSSUtils aliOSSUtils;
+    private final UserService userService;
+
+
     //上传头像
-    @PutMapping ("/uploadAvator")
-    public Result uploadAvator(@RequestParam Long id , @RequestParam(required = false)MultipartFile avator ) throws IOException {
+    @PutMapping("/uploadAvator")
+    public Result uploadAvator(@RequestParam Long id, @RequestParam(required = false) MultipartFile avator) throws IOException {
         String url = aliOSSUtils.upload(avator);
         log.info("上传头像的url: {}", url);
-        userService.uploadAvator(id,url);
-=======
-    //上传图片
-    @PutMapping ("/uploadImage")
-    public Result uploadImage(@RequestParam(required = false)MultipartFile image , @RequestParam Long id) throws IOException {
-        String url = aliOSSUtils.upload(image);
-        log.info("上传文件的url",url);
-
-        userService.uploadImage(id,url);
->>>>>>> Stashed changes
-        return Result.success(url);
-
+        userService.uploadAvator(id, url);
+        return Result.success();
     }
-    //上传图片
-    @PutMapping ("/uploadPhotos")
-    public Result uploadVideos(@RequestParam Long id , @RequestParam("photos") MultipartFile[] photos) throws IOException {
-        List<String> urls = new ArrayList<>();
 
+    //上传图片
+    @PutMapping("/uploadPhotos")
+    public Result uploadPhoto(@RequestParam Long id , @RequestParam MultipartFile[] photos) throws IOException {
+        List<String> urls = new ArrayList<>();
         for (MultipartFile photo : photos) {
             if (!photo.isEmpty()) {
                 try {
@@ -63,23 +54,15 @@ public class UploadController {
         }
         String url = urls.toString();
         log.info(url);
-        userService.uploadPhoto(id,url);
+        userService.uploadPhoto(id, url);
         return Result.success(urls);
 
     }
 
     //上传视频
-<<<<<<< Updated upstream
-    @PutMapping ("/uploadVideos")
-    public Result uploadVideo(@RequestParam Long id , @RequestParam("videos") MultipartFile[] videos) throws IOException {
+    @PutMapping("/uploadVideo")
+    public Result uploadVideo(@RequestParam Long id , @RequestParam MultipartFile[] videos) throws IOException {
         List<String> urls = new ArrayList<>();
-=======
-    @PutMapping ("/uploadVideo")
-    public Result uploadVideo( @RequestParam(required = false)MultipartFile video , @RequestParam Long id) throws IOException {
-        String url = aliOSSUtils.upload(video);
-        log.info("上传文件的url",url);
->>>>>>> Stashed changes
-
         for (MultipartFile video : videos) {
             if (!video.isEmpty()) {
                 try {
@@ -94,8 +77,10 @@ public class UploadController {
         }
         String url = urls.toString();
         log.info(url);
-        userService.uploadVideo(id,url);
+        userService.uploadVideo(id, url);
         return Result.success(urls);
 
     }
+
+
 }

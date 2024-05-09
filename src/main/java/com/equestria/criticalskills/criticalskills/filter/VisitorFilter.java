@@ -1,3 +1,4 @@
+/*
 package com.equestria.criticalskills.criticalskills.filter;
 
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
@@ -27,19 +28,6 @@ public class VisitorFilter implements Filter {
             ,"/send_verify_code"
             ,"/get_verification"
             ,"/user/find_user"
-<<<<<<< Updated upstream
-            ,"/user/modify_user"
-            ,"/user/clear_user"
-            ,"/uploadAvator"
-            ,"/uploadPhotos"
-            ,"/uploadVideos"
-=======
-
-            ,"/user/modify_user"
-            ,"/user/clear_user"
-            ,"/uploadImage"
-            ,"/uploadVideo"
->>>>>>> Stashed changes
             );
 
 
@@ -64,3 +52,4 @@ public class VisitorFilter implements Filter {
     }
 
 }
+*/

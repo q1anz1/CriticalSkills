@@ -1,82 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-<<<<<<< Updated upstream:target/classes/com/equestria/criticalskills/criticalskills/mapper/userMapper/UserMapper.xml
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
+        <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
 
-    <update id="updateInUser"
-            parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
-            UPDATE user_info
-            <set>
-                <if test="username != null">username = #{username},</if>
-                <if test="age != null">age = #{age},</if>
-                <if test="gender != null">gender = #{gender},</if>
-                <if test="birthDate != null">birth_date = #{birthDate},</if>
-                <if test="email != null">email = #{email},</if>
-                <if test="phone != null">phone = #{phone},</if>
-                <if test="qq != null">qq = #{qq},</if>
-                <if test="province != null">province = #{province},</if>
-                <if test="city != null">city = #{city},</if>
-                <if test="introduction != null">introduction = #{introduction},</if>
-                update_time = NOW(),
-            </set>
-            WHERE id = #{id}
-    </update>
-    <update id="updateInAccount"
-            parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
+        <update id="updateInUser"
+        parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
+        UPDATE user_info
+        <set>
+        <if test="username != null">username = #{username},</if>
+        <if test="age != null">age = #{age},</if>
+        <if test="gender != null">gender = #{gender},</if>
+        <if test="birthDate != null">birth_date = #{birthDate},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="qq != null">qq = #{qq},</if>
+        <if test="province != null">province = #{province},</if>
+        <if test="city != null">city = #{city},</if>
+        <if test="introduction != null">introduction = #{introduction},</if>
+        update_time = NOW(),
+        </set>
+        WHERE id = #{id}
+        </update>
+        <update id="updateInAccount"
+        parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
         UPDATE account
         <set>
         <if test="username != null">username = #{username},</if>
-            update_time = NOW(),
+        update_time = NOW(),
         </set>
         WHERE id = #{id}
-    </update>
+        </update>
 
-    <update id="clearUserFields" parameterType="java.lang.Long">
+        <update id="clearUserFields" parameterType="java.lang.Long">
         UPDATE user_info
         SET
-            age = NULL,
-            gender = NULL,
-            video = NULL,
-            birth_date = NULL,
-            email = NULL,
-            phone = NULL,
-            qq = NULL,
-            province = NULL,
-            city = NULL,
-            avator = NULL,
-            photo = NULL,
-            introduction = NULL
+        age = NULL,
+        gender = NULL,
+        video = NULL,
+        birth_date = NULL,
+        email = NULL,
+        phone = NULL,
+        qq = NULL,
+        province = NULL,
+        city = NULL,
+        avator = NULL,
+        photo = NULL,
+        introduction = NULL
         WHERE id = #{id}
-    </update>
+        </update>
 
-    <update id="updateAvator">
+        <update id="updateAvator">
         UPDATE user_info
         SET avator = #{avator}
         WHERE id = #{id}
-    </update>
+        </update>
 
-    <update id="updatePhoto">
+        <update id="updatePhoto">
         UPDATE user_info
         SET photo = #{photo}
         WHERE id = #{id}
-    </update>
+        </update>
 
-    <update id="updateVideo">
+        <update id="updateVideo">
         UPDATE user_info
         SET video = #{video}
         WHERE id = #{id}
-    </update>
+        </update>
 
 
 
-=======
+        =======
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--namespace=绑定一个对应的Dao/Mapper接口-->
-<mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
+        <!--namespace=绑定一个对应的Dao/Mapper接口-->
+        <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
- <!--<update id="update"
+        <!--<update id="update"
            parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
       UPDATE user_info
         SET
@@ -93,5 +92,5 @@
         WHERE id = #{id}
     </update>
 -->
->>>>>>> Stashed changes:src/main/resources/cpm/equestria/criticalskills/criticalskills/mapper/userMapper/UserMapper.xml
-</mapper>
+        >>>>>>> Stashed changes:target/classes/cpm/equestria/criticalskills/criticalskills/mapper/userMapper/UserMapper.xml
+        </mapper>

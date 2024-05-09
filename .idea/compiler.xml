@@ -8,17 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="LearningDemo" />
-        <module name="PIW" />
       </profile>
     </annotationProcessing>
-<<<<<<< Updated upstream
-=======
-    <bytecodeTargetLevel target="17" />
->>>>>>> Stashed changes
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="CriticalSkills" options="-parameters" />
       <module name="LearningDemo" options="-parameters" />
     </option>
   </component>
