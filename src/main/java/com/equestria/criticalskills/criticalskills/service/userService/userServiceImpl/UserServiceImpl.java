@@ -13,11 +13,13 @@ import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterD
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
-import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserBasicInfo;
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -29,13 +31,14 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserInfo> implements UserService {
 
     private final AccountMapper accountMapper;
 /*    private final UserBasicInfoMapper userBasicInfoMapper;*/
 
     private final RedisTemplate<String,String> redisTemplate;
-    private final UserMapper userMapper;
+
+
 
      /*
      * TODO sql时间字段的自动注入
@@ -143,6 +146,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     }
+    //根据id返回用户信息
+    @Override
+    public UserInfo getUserById(Long id) {
+        return this.getBaseMapper().selectById(id);
+    }
 
     //根据id返回用户信息
     @Override
@@ -152,18 +160,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     //修改用户
     @Override
+<<<<<<< Updated upstream
     @Transactional
     public void updateUser(User user) {
          userMapper.updateInUser(user);
          userMapper.updateInAccount(user);
+=======
+    public int updateUser(UserInfo user) {
+        return this.getBaseMapper().updateById(user);
+>>>>>>> Stashed changes
     }
 
     //清空用户
     @Override
     public void clearUser(Long id) {
+<<<<<<< Updated upstream
         userMapper.clearUserFields(id);
     }
 /*    @Override
+=======
+
+    }
+
+
+    /*@Override
+>>>>>>> Stashed changes
     public void clearUser(Long id) {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         // 假设除了id和username外，User实体类还有email和phone字段
@@ -180,6 +201,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .eq("id", id);
 
         // 执行更新操作，只更新除了id和username之外的字段
+<<<<<<< Updated upstream
         userMapper.update(null, updateWrapper);
     }*/
 
@@ -188,6 +210,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void uploadAvator(Long id, String url) {
         userMapper.updateAvator(id, url);
     }
+=======
+        this.getBaseMapper().update(null, updateWrapper);
+    }*/
+>>>>>>> Stashed changes
 
     //上传图片
     @Override
@@ -196,15 +222,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 /*    @Override
     public void uploadImage(Long id, String url) {
+<<<<<<< Updated upstream
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("photo", url)
                 .eq("id", id);
         userMapper.update(null, updateWrapper);
     }*/
+=======
+        UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("image", url)
+                .eq("id", id);
+        this.getBaseMapper().update(null, updateWrapper);
+    }
+>>>>>>> Stashed changes
 
     //上传视频
     @Override
     public void uploadVideo(Long id, String url) {
+<<<<<<< Updated upstream
         userMapper.updateVideo(id, url);
     }
 /*    @Override
@@ -218,4 +253,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
 
+=======
+        UpdateWrapper<UserInfo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.set("video", url)
+                .eq("id", id);
+        this.getBaseMapper().update(null, updateWrapper);
+    }
+>>>>>>> Stashed changes
 }

@@ -22,16 +22,24 @@ public class VisitorFilter implements Filter {
              "/log/send_verify_code"
             ,"/log/register"
             ,"/log/login"
-            , "/log/forget_security"
+            ,"/log/forget_security"
             ,"/log/forget_email"
             ,"/send_verify_code"
             ,"/get_verification"
             ,"/user/find_user"
+<<<<<<< Updated upstream
             ,"/user/modify_user"
             ,"/user/clear_user"
             ,"/uploadAvator"
             ,"/uploadPhotos"
             ,"/uploadVideos"
+=======
+
+            ,"/user/modify_user"
+            ,"/user/clear_user"
+            ,"/uploadImage"
+            ,"/uploadVideo"
+>>>>>>> Stashed changes
             );
 
 

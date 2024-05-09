@@ -25,12 +25,22 @@ public class UploadController {
     @Autowired
     private UserService userService;
 
+<<<<<<< Updated upstream
     //上传头像
     @PutMapping ("/uploadAvator")
     public Result uploadAvator(@RequestParam Long id , @RequestParam(required = false)MultipartFile avator ) throws IOException {
         String url = aliOSSUtils.upload(avator);
         log.info("上传头像的url: {}", url);
         userService.uploadAvator(id,url);
+=======
+    //上传图片
+    @PutMapping ("/uploadImage")
+    public Result uploadImage(@RequestParam(required = false)MultipartFile image , @RequestParam Long id) throws IOException {
+        String url = aliOSSUtils.upload(image);
+        log.info("上传文件的url",url);
+
+        userService.uploadImage(id,url);
+>>>>>>> Stashed changes
         return Result.success(url);
 
     }
@@ -59,9 +69,16 @@ public class UploadController {
     }
 
     //上传视频
+<<<<<<< Updated upstream
     @PutMapping ("/uploadVideos")
     public Result uploadVideo(@RequestParam Long id , @RequestParam("videos") MultipartFile[] videos) throws IOException {
         List<String> urls = new ArrayList<>();
+=======
+    @PutMapping ("/uploadVideo")
+    public Result uploadVideo( @RequestParam(required = false)MultipartFile video , @RequestParam Long id) throws IOException {
+        String url = aliOSSUtils.upload(video);
+        log.info("上传文件的url",url);
+>>>>>>> Stashed changes
 
         for (MultipartFile video : videos) {
             if (!video.isEmpty()) {

@@ -10,6 +10,10 @@ spring:
     url: jdbc:mysql://localhost:3306/critical_skills_works
     username: root
     password: 1234
+<<<<<<< Updated upstream
+=======
+    type: com.zaxxer.hikari.HikariDataSource
+>>>>>>> Stashed changes
   mail:
     # 发送者邮箱
     username: 2859111272@qq.com
@@ -35,16 +39,25 @@ spring:
       host: localhost
       port: 6379
       password:
+<<<<<<< Updated upstream
 
   servlet:
     multipart:
       max-file-size: 10240MB
       max-request-size: 10240MB
+=======
+>>>>>>> Stashed changes
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+<<<<<<< Updated upstream
 
 
 
+=======
+>>>>>>> Stashed changes
