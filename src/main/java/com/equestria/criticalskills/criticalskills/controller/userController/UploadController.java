@@ -60,7 +60,7 @@ public class UploadController {
     }
 
     //上传视频
-    @PutMapping("/uploadVideo")
+    @PutMapping("/uploadVideos")
     public Result uploadVideo(@RequestParam Long id , @RequestParam MultipartFile[] videos) throws IOException {
         List<String> urls = new ArrayList<>();
         for (MultipartFile video : videos) {

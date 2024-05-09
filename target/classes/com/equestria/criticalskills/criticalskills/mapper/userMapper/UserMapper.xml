@@ -11,7 +11,7 @@
         <if test="username != null">username = #{username},</if>
         <if test="age != null">age = #{age},</if>
         <if test="gender != null">gender = #{gender},</if>
-        <if test="birthDate != null">birth_date = #{birthDate},</if>
+        <if test="birthDate != null">birthDate = #{birthDate},</if>
         <if test="email != null">email = #{email},</if>
         <if test="phone != null">phone = #{phone},</if>
         <if test="qq != null">qq = #{qq},</if>
@@ -68,14 +68,15 @@
         WHERE id = #{id}
         </update>
 
-
+</mapper>
+<!--
 
         =======
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-        <!--namespace=绑定一个对应的Dao/Mapper接口-->
+        &lt;!&ndash;namespace=绑定一个对应的Dao/Mapper接口&ndash;&gt;
         <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
-        <!--<update id="update"
+        &lt;!&ndash;<update id="update"
            parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
       UPDATE user_info
         SET
@@ -91,6 +92,6 @@
             introduce = #{introduce}
         WHERE id = #{id}
     </update>
--->
+&ndash;&gt;
         >>>>>>> Stashed changes:target/classes/cpm/equestria/criticalskills/criticalskills/mapper/userMapper/UserMapper.xml
-        </mapper>
+        </mapper>-->
