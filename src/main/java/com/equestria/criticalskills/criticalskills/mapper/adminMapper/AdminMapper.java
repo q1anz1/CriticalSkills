@@ -23,6 +23,16 @@ public interface AdminMapper {
 
     List<UserInfo> selectUserInfos(SelectUserDTO selectUserDTO);
 
-    void updateUser(UserInfo userInfo);
+    void updateUserInfo(UserInfo userInfo);
 
+    void updateAccount(UserInfo userInfo);
+
+    @Select("select photo from user_info where username=#{username}")
+    String findPhotos(String username);
+
+    @Select("select video from user_info where username=#{username}")
+    String findVideos(String username);
+
+
+    void deletePhotosAndVideos(String username,String newPhotos, String newVideos);
 }

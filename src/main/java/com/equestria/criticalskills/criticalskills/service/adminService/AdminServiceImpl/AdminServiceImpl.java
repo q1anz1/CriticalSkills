@@ -81,11 +81,42 @@ public class AdminServiceImpl implements AdminService {
             throw new EditException("编辑用户信息失败");
         }
 
-        try {
-            adminMapper.updateUser(userInfo);
-        }catch (Exception e){
-            throw new EditException("编辑用户信息失败");
+        adminMapper.updateUserInfo(userInfo);
+        adminMapper.updateAccount(userInfo);
+        log.info("用户信息修改成功");
+    }
+
+    @Override
+    public void deletePhotoAndVedio(String username,List<Integer> photos, List<Integer> videos) {
+        String photoStr=adminMapper.findPhotos(username);
+        String videoStr=adminMapper.findVideos(username);
+        String[] findPhotos=photoStr.split(",");
+        String[] findVideos=videoStr.split(",");
+        String newPhotos="";
+        String newVideos="";
+
+        for(int i=0;i<findPhotos.length;i++){
+            if(photos.contains(i))continue;
+            newPhotos+=findPhotos[i];
+            newPhotos+=",";
         }
+
+        for(int i=0;i<findVideos.length;i++){
+            if(videos.contains(i))continue;
+            newVideos+=findVideos[i];
+            newVideos+=",";
+        }
+
+
+        if (!newPhotos.equals("")){
+            newPhotos=newPhotos.substring(0,newPhotos.length()-1);
+        }
+        if (!newVideos.equals("")){
+            newVideos=newVideos.substring(0,newVideos.length()-1);
+        }
+
+        adminMapper.deletePhotosAndVideos(username,newPhotos,newVideos);
+
     }
 
 

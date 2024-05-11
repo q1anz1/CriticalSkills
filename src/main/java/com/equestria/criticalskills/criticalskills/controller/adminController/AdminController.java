@@ -48,5 +48,12 @@ public class AdminController {
 
     }
 
+    @DeleteMapping("/admin/delete_photo_vedio")
+    public Result deletePhotoAndVedio(@RequestParam String username,@RequestParam List<Integer> photos, @RequestParam List<Integer> videos){
+        adminService.deletePhotoAndVedio(username,photos,videos);
+        return Result.success("删除成功");
+
+    }
+
 
 }

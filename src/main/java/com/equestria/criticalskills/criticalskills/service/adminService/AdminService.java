@@ -18,4 +18,6 @@ public interface AdminService {
     void sendSystemMsg(SystemMsgDTO systemMsgDTO) throws MessagingException;
 
     void editUser(UserInfo userInfo);
+
+    void deletePhotoAndVedio(String username,List<Integer> photos, List<Integer> videos);
 }
