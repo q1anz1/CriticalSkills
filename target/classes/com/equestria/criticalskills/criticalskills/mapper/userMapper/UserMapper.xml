@@ -3,9 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
         <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
-        <resultMap id="user_info" type="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
-                <result column="birth_date" property="birthDate" />
-        </resultMap>
+
 
         <update id="updateInUser"
         parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
@@ -14,7 +12,7 @@
         <if test="username != null">username = #{username},</if>
         <if test="age != null">age = #{age},</if>
         <if test="gender != null">gender = #{gender},</if>
-        <if test="birthDate != null">birthDate = #{birthDate},</if>
+        <if test="birthDate != null">birth_date = #{birthDate},</if>
         <if test="email != null">email = #{email},</if>
         <if test="phone != null">phone = #{phone},</if>
         <if test="qq != null">qq = #{qq},</if>
