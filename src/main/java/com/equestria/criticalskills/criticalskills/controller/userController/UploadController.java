@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -52,11 +49,10 @@ public class UploadController {
                 }
             }
         }
-        String url = urls.toString();
+        String url = urls.toString().replaceAll("^\\[|\\]$", "").trim();
         log.info(url);
         userService.uploadPhoto(id, url);
-        return Result.success(urls);
-
+        return Result.success(url);
     }
 
     //上传视频
@@ -75,12 +71,14 @@ public class UploadController {
                 }
             }
         }
-        String url = urls.toString();
+        String url = urls.toString().replaceAll("^\\[|\\]$", "").trim();
         log.info(url);
         userService.uploadVideo(id, url);
-        return Result.success(urls);
-
+        return Result.success(url);
     }
+
+
+
 
 
 }
