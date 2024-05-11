@@ -30,7 +30,7 @@
 
     </select>
 
-    <update id="updateUser">
+    <update id="updateUserInfo">
         update user_info
         <set>
             <if test="username != null and username!='' "> username = #{username},</if>
@@ -44,6 +44,23 @@
             <if test="province != null and province !='' "> province = #{province},</if>
             <if test="city != null and city !='' "> city = #{city},</if>
             <if test="introduction != null and introduction != '' "> introduction= #{introduction},</if>
+        </set>
+        where username= #{username}
+    </update>
+
+    <update id="updateAccount">
+        update account
+        <set>
+            <if test="email != null and email !='' "> email = #{email},</if>
+        </set>
+        where username= #{username}
+    </update>
+
+    <update id="deletePhotosAndVideos">
+        update user_info
+        <set>
+            <if test="newPhotos != null "> photo = #{newPhotos},</if>
+            <if test="newVideos != null "> video = #{newVideos},</if>
         </set>
         where username= #{username}
     </update>
