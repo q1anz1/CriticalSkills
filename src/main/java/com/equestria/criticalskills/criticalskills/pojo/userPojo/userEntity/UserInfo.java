@@ -1,5 +1,10 @@
 package com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+
 
 import lombok.Data;
 
@@ -23,3 +28,4 @@ public class UserInfo {
     private LocalDateTime updateTime;
 
 }
+

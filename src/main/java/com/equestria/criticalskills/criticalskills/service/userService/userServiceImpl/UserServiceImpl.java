@@ -5,18 +5,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
+
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
+
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetByEmailDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
+
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
+
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +31,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+
     private final AccountMapper accountMapper;
     private final UserInfoMapper userInfoMapper;
-
     private final RedisTemplate<String,String> redisTemplate;
-
-
+    private final UserMapper userMapper;
 
 
      /*
@@ -68,8 +72,6 @@ public class UserServiceImpl implements UserService {
         }else {
             account.setRole(2);
         }
-
-
             accountMapper.insertAccount(account);
             userInfoMapper.insertUserBasicInfo(userBasicInfo);
     }
@@ -137,31 +139,41 @@ public class UserServiceImpl implements UserService {
         }
 
     }
-
+    //根据id返回用户信息
     @Override
-    public void uploadImage(Long id, String url) {
-
+    public User getUserById(Long id) {
+        return userMapper.selectById(id);
     }
+
+    //修改用户
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateInUser(user);
+        userMapper.updateInAccount(user);
+    }
+
+    //清空用户
+    @Override
+    public void clearUser(Long id) {
+        userMapper.clearUserFields(id);
+    }
+
+    //上传头像
+    @Override
+    public void uploadAvator(Long id, String url) {
+        userMapper.updateAvator(id, url);
+    }
+
+    //上传图片
+    @Override
+    public void uploadPhoto(Long id, String url) {
+        userMapper.updatePhoto(id, url);
+    }
+
 
     @Override
     public void uploadVideo(Long id, String url) {
-
+        userMapper.updateVideo(id, url);
     }
 
-    @Override
-    public User getUserById(Long id) {
-        return null;
     }
-
-    @Override
-    public void updateUser(User user) {
-
-    }
-
-    @Override
-    public void clearUser(Long id) {
-
-    }
-
-
-}
