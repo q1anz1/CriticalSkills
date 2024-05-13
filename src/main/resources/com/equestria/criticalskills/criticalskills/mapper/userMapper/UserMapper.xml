@@ -4,7 +4,10 @@
         <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
 
 
-        <update id="updateInUser">
+
+
+        <update id="updateInUser"
+        parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
         UPDATE user_info
         <set>
         <if test="username != null">username = #{username},</if>
@@ -67,25 +70,3 @@
         </update>
 
 </mapper>
-
-<!--
-
-        <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
-                <update id="update"
-           parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
-      UPDATE user_info
-        SET
-            username = #{username},
-            gender = #{gender},
-            age = #{age},
-            qq = #{qq},
-            birth_date = #{birthDate},
-            phone = #{phone},
-            email = #{email},
-            province = #{province},
-            city = #{city},
-            introduce = #{introduce}
-        WHERE id = #{id}
-    </update>
--
-        </mapper>-->

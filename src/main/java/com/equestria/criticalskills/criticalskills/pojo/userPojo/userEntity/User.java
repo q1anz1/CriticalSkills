@@ -2,6 +2,8 @@ package com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -20,7 +22,8 @@ public class User {
         /**
          * 生日
          */
-        private LocalDate birthDate;
+        @JsonProperty("birth_date") // 指定JSON字段名
+        private LocalDate birthDate ;
         /**
          * 城市
          */
