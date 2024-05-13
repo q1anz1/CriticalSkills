@@ -4,12 +4,18 @@ server:
 
 spring:
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 456789
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/critical_skills_works
     username: root
     password: 456789
+
 
   mail:
     # 发送者邮箱
@@ -31,11 +37,6 @@ spring:
           #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
           debug: true
           ssl: true
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      password: 456789
 
 
   servlet:
@@ -46,14 +47,12 @@ spring:
 
 
 mybatis:
-
   configuration-properties:
     helperDialect: mysql
     offsetAsPageNum: true
     rowBoundsWithCount: true
     reasonable: true
-  mapper-locations: mybatis/mapper/*.xml
-
+  mapper-locations: src/main/resources/com/equestria/criticalskills/criticalskills/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
 

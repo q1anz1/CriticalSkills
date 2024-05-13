@@ -42,6 +42,7 @@ public class AdminServiceImpl implements AdminService {
         int currnetPage=selectUserDTO.getCurrentPage();
         int pageSize=selectUserDTO.getPageSize();
         int startIndex=(currnetPage-1)*pageSize;
+
         selectUserDTO.setStartIndex(startIndex);
 
         List<UserInfo> userList = adminMapper.selectUserInfos(selectUserDTO);
