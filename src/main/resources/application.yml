@@ -3,11 +3,14 @@ server:
   port: 8080
 
 spring:
+
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/critical_skills_works
     username: root
     password: 456789
+
 
   mail:
     # 发送者邮箱
@@ -54,8 +57,4 @@ mybatis:
 
   configuration:
     map-underscore-to-camel-case: true
-    mapper-locations: classpath:mappers/*.xml
-    type-aliases-package: com.equestria.criticalskills.criticalskills.mybatis.entity
-
-
 
