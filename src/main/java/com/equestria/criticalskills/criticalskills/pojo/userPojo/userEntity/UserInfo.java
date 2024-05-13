@@ -21,6 +21,9 @@ public class UserInfo {
     private String phone;
     private String qq;
     private String avator;
+    private String province;
+    private String city;
+    private String introduction;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 

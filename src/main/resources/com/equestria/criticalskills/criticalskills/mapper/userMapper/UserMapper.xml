@@ -5,6 +5,7 @@
 
 
 
+
         <update id="updateInUser"
         parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
         UPDATE user_info
@@ -23,8 +24,7 @@
         </set>
         WHERE id = #{id}
         </update>
-        <update id="updateInAccount"
-        parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
+        <update id="updateInAccount">
         UPDATE account
         <set>
         <if test="username != null">username = #{username},</if>
@@ -33,7 +33,7 @@
         WHERE id = #{id}
         </update>
 
-        <update id="clearUserFields" parameterType="java.lang.Long">
+        <update id="clearUserFields">
         UPDATE user_info
         SET
         age = NULL,
@@ -70,29 +70,3 @@
         </update>
 
 </mapper>
-<!--
-
-        =======
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-        &lt;!&ndash;namespace=绑定一个对应的Dao/Mapper接口&ndash;&gt;
-        <mapper namespace="com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper">
-
-        &lt;!&ndash;<update id="update"
-           parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
-      UPDATE user_info
-        SET
-            username = #{username},
-            gender = #{gender},
-            age = #{age},
-            qq = #{qq},
-            birth_date = #{birthDate},
-            phone = #{phone},
-            email = #{email},
-            province = #{province},
-            city = #{city},
-            introduce = #{introduce}
-        WHERE id = #{id}
-    </update>
-&ndash;&gt;
-        >>>>>>> Stashed changes:target/classes/cpm/equestria/criticalskills/criticalskills/mapper/userMapper/UserMapper.xml
-        </mapper>-->

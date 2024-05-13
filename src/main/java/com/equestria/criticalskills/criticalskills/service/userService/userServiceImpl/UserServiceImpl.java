@@ -114,7 +114,6 @@ public class UserServiceImpl implements UserService {
             accountMapper.updatePassword(username,password);
         }
 
-
     }
 
 
@@ -131,7 +130,8 @@ public class UserServiceImpl implements UserService {
         if (!emailCode.equals(realEmailCode)){
             throw new AccountException("验证码错误");
         }
-        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
+        String regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$";
+        if (!password.matches(regex)){
             throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
         }
         if (true){
