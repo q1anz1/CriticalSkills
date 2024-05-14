@@ -42,7 +42,6 @@ public class LoginController {
     @PostMapping("/log/login")
     public Result<String> login(@RequestBody LoginDTO loginDTO, HttpServletRequest httpServletRequest) {
         var visitor=httpServletRequest.getAttribute("visitor");
-
         if(userService.login(loginDTO)){
             Map<String, Object> claims = new HashMap<>();
             claims.put("username",loginDTO.getUsername());
