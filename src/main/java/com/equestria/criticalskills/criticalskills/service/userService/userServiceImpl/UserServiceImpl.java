@@ -1,12 +1,13 @@
 package com.equestria.criticalskills.criticalskills.service.userService.userServiceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
+
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
+
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.LoginDTO;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.RegisterDTO;
@@ -15,26 +16,26 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetB
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Account;
 
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
-import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 
+import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl implements UserService {
+
 
     private final AccountMapper accountMapper;
     private final UserInfoMapper userInfoMapper;
-
     private final RedisTemplate<String,String> redisTemplate;
-
-
+    private final UserMapper userMapper;
 
 
      /*
@@ -71,8 +72,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }else {
             account.setRole(2);
         }
-
-
             accountMapper.insertAccount(account);
             userInfoMapper.insertUserBasicInfo(userBasicInfo);
     }
@@ -115,7 +114,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             accountMapper.updatePassword(username,password);
         }
 
-
     }
 
 
@@ -132,7 +130,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!emailCode.equals(realEmailCode)){
             throw new AccountException("验证码错误");
         }
-        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$")){
+        String regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{11,19}$";
+        if (!password.matches(regex)){
             throw new AccountException("密码需要包含数字,大写及小写英文字母,长度至少为10且不超过20");
         }
         if (true){
@@ -140,9 +139,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
     }
+    //根据id返回用户信息
+    @Override
+    public User getUserById(Long id) {
+        return userMapper.selectById(id);
+    }
+
+    //修改用户
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateInUser(user);
+        userMapper.updateInAccount(user);
+    }
+
+    //清空用户
+    @Override
+    public void clearUser(Long id) {
+        userMapper.clearUserFields(id);
+    }
+
+    //上传头像
+    @Override
+    public void uploadAvator(Long id, String url) {
+        userMapper.updateAvator(id, url);
+    }
+
+    //上传图片
+    @Override
+    public void uploadPhoto(Long id, String url) {
+        userMapper.updatePhoto(id, url);
+    }
 
 
+    @Override
+    public void uploadVideo(Long id, String url) {
+        userMapper.updateVideo(id, url);
+    }
 
-
-
-}
+    }

@@ -1,3 +1,4 @@
+/*
 package com.equestria.criticalskills.criticalskills.filter;
 
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
@@ -22,10 +23,11 @@ public class VisitorFilter implements Filter {
              "/log/send_verify_code"
             ,"/log/register"
             ,"/log/login"
-            , "/log/forget_security"
+            ,"/log/forget_security"
             ,"/log/forget_email"
             ,"/send_verify_code"
             ,"/get_verification"
+            ,"/user/find_user"
             );
 
 
@@ -50,3 +52,4 @@ public class VisitorFilter implements Filter {
     }
 
 }
+*/

@@ -6,11 +6,13 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../../../../code/java web/PIW/pom.xml" />
+        <option value="$PROJECT_DIR$/../PIW/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/../../../../code/java web/PIW/pom.xml" />
+        <option value="$PROJECT_DIR$/../PIW/pom.xml" />
       </set>
     </option>
   </component>

@@ -4,7 +4,9 @@ package com.equestria.criticalskills.criticalskills.utils;
 import cn.hutool.extra.template.TemplateEngine;
 import com.equestria.criticalskills.criticalskills.config.RedisConfig;
 import com.equestria.criticalskills.criticalskills.exception.EmailException;
+import com.equestria.criticalskills.criticalskills.mapper.adminMapper.AdminMapper;
 import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.EmailSendDTO;
+import com.equestria.criticalskills.criticalskills.pojo.commonPojo.DTO.SystemMsgDTO;
 import jakarta.annotation.Resource;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +35,7 @@ public class EmailSender {
 
         private final RedisTemplate<String,String> redisTemplate;
         private final JavaMailSenderImpl mailSender;
+        private final AdminMapper adminMapper;
 
 
         @Value("${spring.mail.username}")
@@ -71,8 +75,20 @@ public class EmailSender {
         }
 
 
-        public void sendSystemMessage(EmailSendDTO emailSendDTO) {
+        public void sendSystemMessage(SystemMsgDTO systemMsgDTO) throws MessagingException {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+            List<String> emails=systemMsgDTO.getEmails();
+            String[] toUsers=emails.toArray(new String[emails.size()]);
+            String msg=systemMsgDTO.getMsg();
+
+            helper.setFrom(from);
+            helper.setTo(toUsers);
+            helper.setSubject("系统消息");
+            helper.setText(msg);
+            mailSender.send(message);
+            log.info("系统消息发送成功");
 
         }
 
