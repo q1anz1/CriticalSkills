@@ -26,7 +26,6 @@ public interface UserService {
 
     void uploadAvator(Long id, String url);
 
-
     void uploadPhoto(Long id, String url);
 
     User getUserById(Long id);

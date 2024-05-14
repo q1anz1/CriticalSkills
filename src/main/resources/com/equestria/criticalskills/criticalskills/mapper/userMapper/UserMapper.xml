@@ -24,14 +24,6 @@
         </set>
         WHERE id = #{id}
         </update>
-        <update id="updateInAccount">
-        UPDATE account
-        <set>
-        <if test="username != null">username = #{username},</if>
-        update_time = NOW(),
-        </set>
-        WHERE id = #{id}
-        </update>
 
         <update id="clearUserFields">
         UPDATE user_info

@@ -16,8 +16,9 @@ public interface UserMapper extends BaseMapper<UserInfo> {
 
     @Select("SELECT * FROM user_info WHERE id = #{id}")
     User selectById(Long id);
+
     void updateInUser(User user);
-    void updateInAccount(User user);
+
     void clearUserFields(Long id);
 
     void updateAvator(@Param("id") Long id, @Param("avator") String url);

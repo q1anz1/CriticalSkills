@@ -21,6 +21,9 @@ public interface AdminMapper {
     @Select("select * from account where username=#{username}")
     Account findUserByUsername(String username);
 
+    @Select("select * from account where id=#{id}")
+    Account findUserByUserId(Long id);
+
     List<UserInfo> selectUserInfos(SelectUserDTO selectUserDTO);
 
     void updateUserInfo(UserInfo userInfo);

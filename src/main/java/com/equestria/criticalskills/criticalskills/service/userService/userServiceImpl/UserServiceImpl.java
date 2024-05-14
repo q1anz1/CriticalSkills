@@ -3,7 +3,10 @@ package com.equestria.criticalskills.criticalskills.service.userService.userServ
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
+import com.equestria.criticalskills.criticalskills.exception.EditException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
+import com.equestria.criticalskills.criticalskills.exception.UserException;
+import com.equestria.criticalskills.criticalskills.mapper.adminMapper.AdminMapper;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
 
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
@@ -36,6 +39,7 @@ public class UserServiceImpl implements UserService {
     private final UserInfoMapper userInfoMapper;
     private final RedisTemplate<String,String> redisTemplate;
     private final UserMapper userMapper;
+    private final AdminMapper adminMapper;
 
 
      /*
@@ -142,14 +146,26 @@ public class UserServiceImpl implements UserService {
     //根据id返回用户信息
     @Override
     public User getUserById(Long id) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("查询用户信息失败");
+        }
         return userMapper.selectById(id);
     }
 
     //修改用户
     @Override
     public void updateUser(User user) {
+        Long id = user.getId();
+        Account users=adminMapper.findUserByUserId(id);
+        if(users==null){
+            throw new UserException("用户不存在");
+        }else if (users.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updateInUser(user);
-        userMapper.updateInAccount(user);
     }
 
     //清空用户
@@ -161,18 +177,35 @@ public class UserServiceImpl implements UserService {
     //上传头像
     @Override
     public void uploadAvator(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updateAvator(id, url);
     }
 
     //上传图片
     @Override
     public void uploadPhoto(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updatePhoto(id, url);
     }
 
-
     @Override
     public void uploadVideo(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updateVideo(id, url);
     }
 
