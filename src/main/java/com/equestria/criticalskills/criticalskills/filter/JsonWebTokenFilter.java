@@ -1,3 +1,4 @@
+/*
 
 package com.equestria.criticalskills.criticalskills.filter;
 
@@ -67,3 +68,4 @@ public class JsonWebTokenFilter implements Filter {
 
 }
 
+*/

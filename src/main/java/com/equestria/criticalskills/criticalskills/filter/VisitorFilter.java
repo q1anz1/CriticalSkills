@@ -1,3 +1,4 @@
+/*
 
 package com.equestria.criticalskills.criticalskills.filter;
 
@@ -53,3 +54,4 @@ public class VisitorFilter implements Filter {
 
 }
 
+*/
