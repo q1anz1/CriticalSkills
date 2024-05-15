@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.equestria.criticalskills.criticalskills.mapper.homePageMapper.HomePageMapper">
+    <select id="list" resultType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo">
+        select *
+        from critical_skills_works.user_info
+        <where>
+            <if test="username != null">
+                username=#{username}
+            </if>
+            <if test="gender != null">
+                and gender=#{gender}
+            </if>
+            <if test="ageStart != null and ageEnd != null">
+                and age between #{ageStart} and #{ageEnd}
+            </if>
+            <if test="email != null">
+                and email=#{email}
+            </if>
+            <if test="qq != null">
+                and qq=#{qq}
+            </if>
+            <if test="phone != null">
+                and phone=#{phone}
+            </if>
+        </where>
+    </select>
+</mapper>

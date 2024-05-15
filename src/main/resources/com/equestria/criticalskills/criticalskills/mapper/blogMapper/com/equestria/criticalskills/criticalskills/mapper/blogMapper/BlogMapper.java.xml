@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.equestria.criticalskills.criticalskills.mapper.blogMapper.BlogMapper">
+    <select id="00000000" resultType="com.equestria.criticalskills.criticalskills.pojo.bolgPojo.BlogEntity">
+
+
+    </select>
+</mapper>
