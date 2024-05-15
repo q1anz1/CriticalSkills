@@ -15,7 +15,6 @@ public class BlogEntity {
     private String videoUrl;
     private Integer likes=0;
     private Integer dislikes=0;
-    private Integer shares=0;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }

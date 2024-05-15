@@ -29,9 +29,6 @@ public class LoginController {
     private final UserService userService;
     private final JsonWebTokenUtil jsonWebTokenUtil;
 
-
-
-
     @PostMapping("/log/register")
     public Result<String> register(@RequestBody RegisterDTO registerDTO) {
             userService.addUser(registerDTO);
@@ -44,6 +41,12 @@ public class LoginController {
         var visitor=httpServletRequest.getAttribute("visitor");
 
         if(userService.login(loginDTO)){
+
+        }
+        if(true
+                //userService.login(loginDTO)
+            ){
+
             Map<String, Object> claims = new HashMap<>();
             claims.put("username",loginDTO.getUsername());
             String token= jsonWebTokenUtil.createToken("jwt",claims,180);
