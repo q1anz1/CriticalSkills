@@ -20,12 +20,18 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Acco
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
+import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
+import com.equestria.criticalskills.criticalskills.utils.JsonWebTokenUtil;
+import com.sun.net.httpserver.Authenticator;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 
 @Slf4j
@@ -39,6 +45,7 @@ public class UserServiceImpl implements UserService {
     private final RedisTemplate<String,String> redisTemplate;
     private final UserMapper userMapper;
     private final AdminMapper adminMapper;
+    private final JsonWebTokenUtil jsonWebTokenUtil;
 
 
      /*
@@ -156,21 +163,41 @@ public class UserServiceImpl implements UserService {
 
     //修改用户
     @Override
-    public void updateUser(User user) {
-        Long id = user.getId();
-        Account users=adminMapper.findUserByUserId(id);
-        if(users==null){
-            throw new UserException("用户不存在");
-        }else if (users.getRole()==0){
-            throw new UserException("修改用户信息失败");
+    public void updateUser(User user , HttpServletRequest httpServletRequest) {
+        Map map = jsonWebTokenUtil.getMap(httpServletRequest);
+        String username = map.get("username").toString();
+
+        if(user.getUsername().equals(username)) {
+            Long id = user.getId();
+            Account users = adminMapper.findUserByUserId(id);
+            if (users == null) {
+                throw new UserException("用户不存在");
+            } else if (users.getRole() == 0) {
+                throw new UserException("修改用户信息失败");
+            }
+            userMapper.updateInUser(user);
         }
-        userMapper.updateInUser(user);
+        else{
+            throw new UserException("用户不正确");
+        }
     }
 
     //清空用户
     @Override
-    public void clearUser(Long id) {
-        userMapper.clearUserFields(id);
+    public void clearUser(Long id , HttpServletRequest httpServletRequest) {
+        Account users = adminMapper.findUserByUserId(id);
+
+        Map map = jsonWebTokenUtil.getMap(httpServletRequest);
+        String username = map.get("username").toString();
+
+        if(users.getUsername().equals(username)) {
+            userMapper.clearUserFields(id);
+        }
+        else{
+            throw new UserException("清空用户信息失败");
+        }
+
+
     }
 
     //上传头像

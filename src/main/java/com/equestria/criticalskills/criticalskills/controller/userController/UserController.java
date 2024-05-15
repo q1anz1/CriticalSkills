@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     //根据id返回个人信息
     @GetMapping("/user/find_user")
@@ -39,16 +39,17 @@ public class UserController {
     //修改
     @PutMapping("/user/modify_user")
 
-    public Result updateUser(@RequestBody User user){
-        userService.updateUser(user);
+    public Result  updateUser(@RequestBody User user ,HttpServletRequest httpServletRequest){
+        userService.updateUser(user, httpServletRequest);
         return Result.success("修改成功");
 
     }
 
     //清空个人信息
     @PostMapping("/user/clear_user")
-    public Result clearUser(@RequestParam Long id) {
-        userService.clearUser(id);
+    public Result clearUser(@RequestParam Long id , HttpServletRequest httpServletRequest) {
+        userService.clearUser(id , httpServletRequest);
+
         return Result.success("清空成功");
     }
 

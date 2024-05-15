@@ -10,7 +10,8 @@
         parameterType="com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User">
         UPDATE user_info
         <set>
-        <if test="username != null">username = #{username},</if>
+
+        <if test="nickName != null">nick_name = #{nickName},</if>
         <if test="age != null">age = #{age},</if>
         <if test="gender != null">gender = #{gender},</if>
         <if test="birthDate != null">birth_date = #{birthDate},</if>
@@ -28,6 +29,7 @@
         <update id="clearUserFields">
         UPDATE user_info
         SET
+        nick_name = NULL,
         age = NULL,
         gender = NULL,
         video = NULL,
