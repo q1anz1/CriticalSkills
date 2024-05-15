@@ -1,16 +1,28 @@
 package com.equestria.criticalskills.criticalskills.controller.userController;
+import cn.hutool.core.util.RandomUtil;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
 
+import com.equestria.criticalskills.criticalskills.utils.JsonWebTokenUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.JwtParserBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+
 @RestController
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
+
     private UserService userService;
 
     //根据id返回个人信息
@@ -38,8 +50,6 @@ public class UserController {
     public Result clearUser(@RequestParam Long id) {
         userService.clearUser(id);
         return Result.success("清空成功");
-
     }
-
 
     }
