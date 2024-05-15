@@ -1,6 +1,6 @@
 package com.equestria.criticalskills.criticalskills.controller.commonController;
 
-import com.equestria.criticalskills.criticalskills.pojo.commonPojo.VO.PageBean;
+import com.equestria.criticalskills.criticalskills.pojo.commonPojo.VO.UserInfoPageBean;
 import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.homePage.HomePageService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class HomePageController {
     public Result findUser(@RequestParam String username,Integer gender,Integer ageStart,Integer ageEnd,String email,String qq,String phone
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
         log.info("分页查询,参数：{},{},{},{},{},{},{},页数：{},每页有{}",username, gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
-        PageBean pageBean = homePageService.pagesearch(username,gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
+        UserInfoPageBean pageBean = homePageService.pagesearch(username,gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
         //判断是否合法
         if(!(judgeAge(ageStart) && judgeAge(ageEnd))){
             log.info("年龄不合法");

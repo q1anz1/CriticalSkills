@@ -11,10 +11,12 @@ public interface HomePageMapper {
      List<UserInfo> list (String username, Integer gender, Integer ageStart,Integer ageEnd
             , String email, String qq, String phone);
 
-     @Select("select * from critical_skills_works.user_basic_info where id = #{id}")
+     @Select("select * from critical_skills_works.user_info where id = #{id}")
      UserInfo selectUserBasicInfoById(Integer id);
-     @Select("select count(*) from critical_skills_works.user_basic_info")
+     @Select("select count(*) from critical_skills_works.user_info")
      Integer selectNumberOfUser();
      @Select("select role from critical_skills_works.account where id=#{id}")
      Integer selectRoleById(Integer id);
+
+
 }

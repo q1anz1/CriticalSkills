@@ -1,7 +1,5 @@
 package com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
@@ -13,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class UserInfo {
+    private Integer id;
     private String username;
     private Integer age;
     private Integer gender;

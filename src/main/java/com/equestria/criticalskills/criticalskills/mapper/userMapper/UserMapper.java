@@ -1,6 +1,5 @@
 package com.equestria.criticalskills.criticalskills.mapper.userMapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,10 +10,10 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 
 @Mapper
-public interface UserMapper extends BaseMapper<UserInfo> {
+public interface UserMapper <UserInfo> {
 
 
-    @Select("SELECT * FROM user_info WHERE id = #{id}")
+    @Select("SELECT * FROM critical_skills_works.user_info WHERE id = #{id}")
     User selectById(Long id);
     void updateInUser(User user);
     void updateInAccount(User user);
