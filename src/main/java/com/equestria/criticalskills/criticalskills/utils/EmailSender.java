@@ -89,6 +89,7 @@ public class EmailSender {
             helper.setText(msg);
             mailSender.send(message);
             log.info("系统消息发送成功");
+
         }
 
 

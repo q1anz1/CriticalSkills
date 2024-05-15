@@ -12,6 +12,7 @@ spring:
     password: 1234
 
 
+
   mail:
     # 发送者邮箱
     username: 2859111272@qq.com

@@ -1,7 +1,6 @@
 package com.equestria.criticalskills.criticalskills.service.userService.userServiceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
 import com.equestria.criticalskills.criticalskills.exception.EditException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;

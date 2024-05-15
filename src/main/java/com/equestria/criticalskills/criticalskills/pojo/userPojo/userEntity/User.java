@@ -1,7 +1,6 @@
 package com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -43,7 +42,7 @@ public class User {
         /**
          * 用户id
          */
-        private long id;
+        private Long id;
         /**
          * 个人介绍
          */
