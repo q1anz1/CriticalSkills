@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/../PIW/pom.xml" />
       </set>
     </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="PWA">
     <option name="enabled" value="true" />
