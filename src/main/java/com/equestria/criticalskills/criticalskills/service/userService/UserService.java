@@ -14,9 +14,7 @@ import java.util.List;
 
 public interface UserService {
 
-
     void addUser(RegisterDTO registerDTO);
-
 
     boolean login(LoginDTO loginDTO);
 
