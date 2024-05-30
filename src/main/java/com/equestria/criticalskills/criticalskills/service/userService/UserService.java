@@ -6,15 +6,15 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetB
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userDTO.ForgetBySecurityDTO;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
+import com.equestria.criticalskills.criticalskills.result.Result;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
 
 public interface UserService {
 
-
     void addUser(RegisterDTO registerDTO);
-
 
     boolean login(LoginDTO loginDTO);
 
@@ -26,13 +26,12 @@ public interface UserService {
 
     void uploadAvator(Long id, String url);
 
-
     void uploadPhoto(Long id, String url);
 
     User getUserById(Long id);
 
-    void updateUser(User user);
+    void updateUser(User user , HttpServletRequest httpServletRequest);
 
-    void clearUser(Long id);
+    void clearUser(Long id , HttpServletRequest httpServletRequest);
 
 }

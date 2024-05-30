@@ -13,6 +13,7 @@ public class JudgeValue {
         return true;
     }
     public static boolean judgeEmail(String email){
+
         Pattern pattern = Pattern.compile("[.]{1,50}@[.]{1,50}");
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

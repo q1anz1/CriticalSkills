@@ -75,4 +75,7 @@ public class User {
          * 视频的url集合
          */
         private String video;
+
+        @JsonProperty("nick_name") // 指定JSON字段名
+        private String nickName;
 }

@@ -2,7 +2,10 @@ package com.equestria.criticalskills.criticalskills.service.userService.userServ
 
 import cn.hutool.core.bean.BeanUtil;
 import com.equestria.criticalskills.criticalskills.exception.AccountException;
+import com.equestria.criticalskills.criticalskills.exception.EditException;
 import com.equestria.criticalskills.criticalskills.exception.LoginException;
+import com.equestria.criticalskills.criticalskills.exception.UserException;
+import com.equestria.criticalskills.criticalskills.mapper.adminMapper.AdminMapper;
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.AccountMapper;
 
 import com.equestria.criticalskills.criticalskills.mapper.userMapper.UserInfoMapper;
@@ -17,12 +20,18 @@ import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.Acco
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.User;
 
 import com.equestria.criticalskills.criticalskills.pojo.userPojo.userEntity.UserInfo;
+import com.equestria.criticalskills.criticalskills.result.Result;
 import com.equestria.criticalskills.criticalskills.service.userService.UserService;
+import com.equestria.criticalskills.criticalskills.utils.JsonWebTokenUtil;
+import com.sun.net.httpserver.Authenticator;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 
 @Slf4j
@@ -35,6 +44,8 @@ public class UserServiceImpl implements UserService {
     private final UserInfoMapper userInfoMapper;
     private final RedisTemplate<String,String> redisTemplate;
     private final UserMapper userMapper;
+    private final AdminMapper adminMapper;
+    private final JsonWebTokenUtil jsonWebTokenUtil;
 
 
      /*
@@ -141,37 +152,86 @@ public class UserServiceImpl implements UserService {
     //根据id返回用户信息
     @Override
     public User getUserById(Long id) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("查询用户信息失败");
+        }
         return userMapper.selectById(id);
     }
 
     //修改用户
     @Override
-    public void updateUser(User user) {
-        userMapper.updateInUser(user);
-        userMapper.updateInAccount(user);
+    public void updateUser(User user , HttpServletRequest httpServletRequest) {
+        Map map = jsonWebTokenUtil.getMap(httpServletRequest);
+        String username = map.get("username").toString();
+
+        if(user.getUsername().equals(username)) {
+            Long id = user.getId();
+            Account users = adminMapper.findUserByUserId(id);
+            if (users == null) {
+                throw new UserException("用户不存在");
+            } else if (users.getRole() == 0) {
+                throw new UserException("修改用户信息失败");
+            }
+            userMapper.updateInUser(user);
+        }
+        else{
+            throw new UserException("用户不正确");
+        }
     }
 
     //清空用户
     @Override
-    public void clearUser(Long id) {
-        userMapper.clearUserFields(id);
+    public void clearUser(Long id , HttpServletRequest httpServletRequest) {
+        Account users = adminMapper.findUserByUserId(id);
+
+        Map map = jsonWebTokenUtil.getMap(httpServletRequest);
+        String username = map.get("username").toString();
+
+        if(users.getUsername().equals(username)) {
+            userMapper.clearUserFields(id);
+        }
+        else{
+            throw new UserException("清空用户信息失败");
+        }
+
+
     }
 
     //上传头像
     @Override
     public void uploadAvator(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updateAvator(id, url);
     }
 
     //上传图片
     @Override
     public void uploadPhoto(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updatePhoto(id, url);
     }
 
-
     @Override
     public void uploadVideo(Long id, String url) {
+        Account user=adminMapper.findUserByUserId(id);
+        if(user==null){
+            throw new UserException("用户不存在");
+        }else if (user.getRole()==0){
+            throw new UserException("修改用户信息失败");
+        }
         userMapper.updateVideo(id, url);
     }
 
