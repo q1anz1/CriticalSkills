@@ -8,9 +8,9 @@ blog部分包括博客的创建，修改，分页搜索，查看，点赞等。
 
 数据库中我的部分有使用到用户个人信息库，用户账号数据库，博客库。
 
-更多接口文档在API FOX中，分享链接：https://apifox.com/apidoc/shared-b80a2dbe-05f6-4700-92ce-c7bf2244997e
+更多接口文档在API FOX中，分享链接：https://apifox.com/apidoc/shared-b80a2dbe-05f6-4700-92ce-c7bf2284997e
 
-2024.9.8
+时间2024.9.8
 
 # 使用方法
 
