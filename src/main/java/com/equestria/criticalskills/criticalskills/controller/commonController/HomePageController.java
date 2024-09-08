@@ -17,25 +17,11 @@ public class HomePageController {
     public Result findUser(@RequestParam String username,Integer gender,Integer ageStart,Integer ageEnd,String email,String qq,String phone
             , @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
         log.info("分页查询,参数：{},{},{},{},{},{},{},页数：{},每页有{}",username, gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
-        UserInfoPageBean pageBean = homePageService.pagesearch(username,gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
-        //判断是否合法
-        if(!(judgeAge(ageStart) && judgeAge(ageEnd))){
-            log.info("年龄不合法");
-            return Result.error("年龄不合法");
-        }
-        if(!(judgeEmail(email))) {
-            log.info("email不合法");
-            return Result.error("email不合法");
-        }
-        if(!(judgeGender(gender))) {
-            log.info("性别不合法");
-            return Result.error("性别不合法");
-        }
-        return Result.success(pageBean);
+        return homePageService.pagesearch(username,gender,ageStart,ageEnd,email,qq,phone,page,pageSize);
     }
     @GetMapping ("/main")
     public Result randomRecommend(){
         log.info("随机推荐");
-        return Result.success(homePageService.randomRecommend());
+        return homePageService.randomRecommend();
     }
 }
